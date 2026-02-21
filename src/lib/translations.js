@@ -25,7 +25,7 @@ export const translations = {
         },
 
         about: {
-            label: "01. About Me",
+            label: "About Me",
             title: "About me",
             /* Bio paragrafları: {accent} = vurgu rengi, {text} = ana metin rengi, {gold} = altın renk */
             bio: [
@@ -78,7 +78,7 @@ export const translations = {
         },
 
         experience: {
-            label: "02. Experience",
+            label: "Experience",
             title: "Where I've worked",
             entries: [
                 {
@@ -103,7 +103,7 @@ export const translations = {
         },
 
         projects: {
-            label: "03. Projects",
+            label: "Projects",
             title: "Things I've built",
             hint: "Click any card to view details, demo & links",
             inProgress: "In Progress",
@@ -113,7 +113,7 @@ export const translations = {
         },
 
         contact: {
-            label: "04. Contact",
+            label: "Contact",
             title: "Get in touch",
             description:
                 "I'm actively looking for new opportunities. Whether it's a full-time role, internship, or just a conversation — my inbox is always open.",
@@ -149,7 +149,7 @@ export const translations = {
         },
 
         about: {
-            label: "01. Hakkımda",
+            label: "Hakkımda",
             title: "Ben kimim?",
             bio: [
                 {
@@ -200,7 +200,7 @@ export const translations = {
         },
 
         experience: {
-            label: "02. Deneyim",
+            label: "Deneyim",
             title: "Çalıştığım yerler",
             entries: [
                 {
@@ -225,7 +225,7 @@ export const translations = {
         },
 
         projects: {
-            label: "03. Projeler",
+            label: "Projeler",
             title: "Geliştirdiklerim",
             hint: "Detay, demo ve linkleri görmek için karta tıkla",
             inProgress: "Devam Ediyor",
@@ -235,7 +235,7 @@ export const translations = {
         },
 
         contact: {
-            label: "04. İletişim",
+            label: "İletişim",
             title: "İletişime geç",
             description:
                 "Yeni fırsatlar arıyorum. İster tam zamanlı pozisyon, ister staj, isterse sadece bir sohbet olsun — mesajınıza her zaman açığım.",

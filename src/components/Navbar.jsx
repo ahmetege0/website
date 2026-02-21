@@ -2,12 +2,10 @@
 /*
   components/Navbar.jsx
 
-  Mobil güncelleme:
-  - Hamburger menu VE AnimatePresence dropdown tamamen kaldırıldı
-  - Nav linkleri her ekranda yatay gösterilir (hidden md:flex → her zaman flex)
-  - Mobilde metin ve padding küçülür, desktop'ta normal boyuta döner
-  - 3 kolon layout korundu ama sol spacer artık sadece md'da görünür,
-    böylece mobil genişlikte linkler + kontroller tüm satıra yayılır
+  Düzeltmeler:
+  1. Sağ kontroller div'e md:flex-1 eklendi → desktop'ta linkler kesinlikle ortada
+  2. EN/TR buton font boyutu büyütüldü (text-xs md:text-sm)
+  3. Hamburger yok, linkler her zaman yatay görünür (önceki güncelleme)
 */
 
 import { useState, useEffect } from "react";
@@ -70,17 +68,15 @@ export default function Navbar() {
                 }}
             >
                 {/*
-          Layout:
-          - [hidden md:block] sol spacer — sadece desktop'ta gösterilir
-          - Linkler: her ekranda görünür, mobilde text-[10px] + px-1.5, desktop'ta text-xs + px-4
-          - Sağ kontroller: kar + dil
-
-          Bu yapı sayesinde mobilde: [linkler ... kontroller] (tam genişliğe yayılır)
-          Desktop'ta: [boşluk | ortalanmış linkler | sağ kontroller]
+          3-kolon layout:
+          [hidden md:flex flex-1]  ← Sol spacer (sadece desktop)
+          [flex-1 md:flex-initial] ← Linkler (mobil → flex-1, desktop → içerik boyutu)
+          [md:flex-1 justify-end]  ← Kontroller: Bu flex-1 sol spacer'ı dengeler
+                                       → linkler kesinlikle ortada kalır
         */}
                 <div className="max-w-5xl mx-auto px-3 md:px-6 flex items-center gap-1 md:gap-4">
 
-                    {/* Sol boşluk — sadece desktop */}
+                    {/* Sol spacer — sadece desktop */}
                     <div className="hidden md:flex flex-1" />
 
                     {/* Nav linkleri — her zaman görünür */}
@@ -103,19 +99,15 @@ export default function Navbar() {
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                                     />
                                 )}
-                                {/*
-                  Mobil: text-[10px] — çok küçük ama okunabilir
-                  Desktop: text-xs — normal navbar boyutu
-                */}
-                                <span className="relative z-10 font-mono text-[10px] md:text-xs tracking-wide md:tracking-wider uppercase whitespace-nowrap">
+                                <span className="relative z-10 text-[10px] md:text-xs font-semibold tracking-[0.12em] uppercase whitespace-nowrap">
                                     {link.label}
                                 </span>
                             </a>
                         ))}
                     </div>
 
-                    {/* Sağ kontroller: kar + dil */}
-                    <div className="flex items-center justify-end gap-1.5 md:gap-2">
+                    {/* Sağ kontroller — md:flex-1 ile sol spacer'ı dengeler */}
+                    <div className="flex items-center justify-end gap-1.5 md:gap-2 md:flex-1">
 
                         {/* Kar butonu */}
                         <button
@@ -141,16 +133,24 @@ export default function Navbar() {
                             </svg>
                         </button>
 
-                        {/* Dil toggle */}
+                        {/* Dil toggle — daha büyük font */}
                         <button
                             onClick={toggle}
-                            className="flex items-center gap-0.5 md:gap-1 px-2 md:px-2.5 py-1 md:py-1.5 rounded border transition-all duration-200"
+                            className="flex items-center gap-0.5 md:gap-1 px-2 md:px-3 py-1 md:py-1.5 rounded border transition-all duration-200"
                             style={{ borderColor: "var(--border)", background: "transparent" }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = "var(--border-accent)";
+                                e.currentTarget.style.background = "rgba(100,255,218,0.04)";
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = "var(--border)";
+                                e.currentTarget.style.background = "transparent";
+                            }}
                             aria-label="Toggle language"
                         >
-                            <span className="font-mono text-[10px] md:text-xs font-semibold" style={{ color: lang === "en" ? "var(--accent)" : "var(--text-dim)" }}>EN</span>
-                            <span className="font-mono text-[10px] md:text-xs" style={{ color: "var(--text-dim)" }}>|</span>
-                            <span className="font-mono text-[10px] md:text-xs font-semibold" style={{ color: lang === "tr" ? "var(--accent)" : "var(--text-dim)" }}>TR</span>
+                            <span className="text-xs md:text-sm font-semibold tracking-[0.12em]" style={{ color: lang === "en" ? "var(--accent)" : "var(--text-dim)" }}>EN</span>
+                            <span className="text-xs md:text-sm" style={{ color: "var(--text-dim)" }}>|</span>
+                            <span className="text-xs md:text-sm font-semibold tracking-[0.12em]" style={{ color: lang === "tr" ? "var(--accent)" : "var(--text-dim)" }}>TR</span>
                         </button>
                     </div>
 

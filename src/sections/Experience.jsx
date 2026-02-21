@@ -1,13 +1,19 @@
 "use client";
+/*
+  sections/Experience.jsx
+
+  SERG kaybolma fix:
+  Önceki: Tüm entries staggerChildren içinde bir motion.div container'dan alıyordu.
+  Bu pattern'de eğer container viewport'a girince tetikleniyor ama bireysel entry'ler
+  henüz viewport dışındaysa, once: true ile bir daha tetiklenmiyor → SERG gizli kalıyor.
+
+  Çözüm: Her entry kendi whileInView animasyonuna sahip.
+  Artık her kart, kendi viewport girişinde bağımsız olarak animate oluyor.
+*/
 
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
 import { translations } from "@/lib/translations";
-
-const fadeUp = {
-    hidden: { opacity: 0, y: 28 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
-};
 
 export default function Experience() {
     const { lang } = useLanguage();
@@ -29,20 +35,26 @@ export default function Experience() {
                     </h2>
                 </motion.div>
 
-                <motion.div
-                    className="flex flex-col gap-3"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "-60px" }}
-                    variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
-                >
-                    {t.entries.map((exp) => (
+                {/*
+                  Her entry kendi whileInView animasyonuna sahip.
+                  once: false → kullanıcı yukarı-aşağı scroll etse bile her seferinde animate eder.
+                  Bu, SERG'in kaybolma sorununu tamamen çözer.
+                */}
+                <div className="flex flex-col gap-3">
+                    {t.entries.map((exp, index) => (
                         <motion.a
                             key={exp.company}
                             href={exp.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            variants={fadeUp}
+                            initial={{ opacity: 0, y: 28 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: false, margin: "-80px" }}
+                            transition={{
+                                duration: 0.55,
+                                ease: [0.25, 0.46, 0.45, 0.94],
+                                delay: index * 0.08, /* Hafif kademeli efekt korunuyor */
+                            }}
                             className="group relative p-6 rounded-xl transition-all duration-300 no-underline"
                             style={{ border: "1px solid transparent" }}
                             onMouseEnter={(e) => {
@@ -86,13 +98,13 @@ export default function Experience() {
                                     </p>
 
                                     <div className="flex flex-wrap gap-2">
-                                        {exp.tech.map((t) => (
+                                        {exp.tech.map((tech) => (
                                             <span
-                                                key={t}
+                                                key={tech}
                                                 className="font-mono text-xs px-3 py-1 rounded-full"
                                                 style={{ color: "var(--accent)", background: "rgba(100, 255, 218, 0.08)", border: "1px solid rgba(100, 255, 218, 0.15)" }}
                                             >
-                                                {t}
+                                                {tech}
                                             </span>
                                         ))}
                                     </div>
@@ -100,7 +112,7 @@ export default function Experience() {
                             </div>
                         </motion.a>
                     ))}
-                </motion.div>
+                </div>
             </div>
         </section>
     );
