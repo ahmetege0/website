@@ -1,0 +1,263 @@
+/* globals.css — Sofistike Yeniden Tasarım
+   Referans: brittanychiang.com tarzı — temiz, profesyonel, minimal
+   Renk paleti: Kullanıcının lacivert+teal paletinden sofistike versiyon
+*/
+
+@import "tailwindcss";
+
+:root {
+  /* === ANA RENKLER ===
+     #0d1b2e: Brittany tarzı ışık alan koyu lacivert — pure black kadar karanlık değil
+     Kullanıcının #010626 → #022859 paletinden ilham alınan daha modern ton
+  */
+  --bg: #0d1b2e;
+  --bg-surface: #162033;
+  /* Bölümler arası hafif kontrast */
+  --bg-card: #1c2d45;
+  /* Kart arka planı */
+  --bg-elevated: #233554;
+  /* Hover elemanlar */
+
+  /* Kenarlıklar */
+  --border: rgba(100, 200, 200, 0.08);
+  --border-accent: rgba(100, 255, 218, 0.25);
+
+  /* === VURGU RENKLERİ ===
+     #64ffda: Klasik profesyonel mint/teal — neon yeşil değil, rafine
+     Brittany'nin kullandığı ton, CSS dünyasında "junior dev icon rengi" :)
+  */
+  --accent: #64ffda;
+  --accent-dim: #38b89a;
+  /* Daha loş ton */
+  --accent-glow: rgba(100, 255, 218, 0.12);
+
+  /* Kullanıcının paletinden yardımcı renkler */
+  --blue: #2481a6;
+  --gold: #f2ca50;
+
+  /* Metin */
+  --text: #e2e8f0;
+  /* Hafif mavi-beyaz */
+  --text-muted: #8892b0;
+  /* Muted — Brittany tarzı */
+  --text-dim: #4a5568;
+
+  /* Font */
+  --font-sans: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Özelleştirilmiş scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-dim);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Metin seçimi */
+::selection {
+  background: rgba(100, 255, 218, 0.18);
+  color: var(--accent);
+}
+
+/* === ANİMASYONLAR ===
+   Sadece zorunlu olanlar — sade kalıyoruz
+*/
+
+/* Orb float animasyonu — çok hafif, neredeyse fark edilmez */
+@keyframes drift-1 {
+
+  0%,
+  100% {
+    transform: translate(0px, 0px);
+  }
+
+  50% {
+    transform: translate(25px, -35px);
+  }
+}
+
+@keyframes drift-2 {
+
+  0%,
+  100% {
+    transform: translate(0px, 0px);
+  }
+
+  50% {
+    transform: translate(-30px, 25px);
+  }
+}
+
+/* Fade in — sayfaya giriş animasyonu */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Yanıp sönen cursor efekti */
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* === YARDIMCI SINIFLAR === */
+
+/*
+  text-gradient: Gradient metin
+  NOT: Animasyon kaldırıldı (gradient-shift yoktu, sabit gradient)
+  Sade duruyor, göz yormaz
+*/
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Mono font — kod, slug, tarih gibi teknik metinler için */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Orb animasyolu arka plan elemanı */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+}
+
+/* Kart temel stili */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--border-accent);
+  box-shadow: 0 0 24px rgba(100, 255, 218, 0.06), 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Buton stilleri */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: var(--bg);
+  border-radius: 4px;
+  /* Brittany tarzı — daha az yuvarlak */
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent), 0 0 20px rgba(100, 255, 218, 0.15);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-outline:hover {
+  background: rgba(100, 255, 218, 0.08);
+  box-shadow: 0 0 20px rgba(100, 255, 218, 0.1);
+}
+
+/* Section düzeni */
+.section {
+  padding: 6rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Mono etiket — section başlığı üzerindeki küçük yazı */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+/* Modal arka plan overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 27, 46, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
