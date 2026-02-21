@@ -17,8 +17,20 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
+import { translations } from "@/lib/translations";
 
-export default function ProjectModal({ project, onClose }) {
+export default function ProjectModal({ project, onClose, t }) {
+    const { lang } = useLanguage();
+
+    /* Dile göre doğru uzun açıklamayı seç */
+    const description =
+        lang === "tr" && project.longDescriptionTr
+            ? project.longDescriptionTr
+            : project.longDescription;
+
+    const technologiesLabel =
+        translations[lang]?.projects?.technologies || "Technologies";
     /*
       useEffect: Escape tuşu ile modalı kapatmak için
       'keydown' event listener ekleyip temizliyoruz
@@ -148,7 +160,9 @@ export default function ProjectModal({ project, onClose }) {
                                     : "var(--accent)",
                         }}
                     >
-                        {project.status === "In Progress" ? "⚡ In Progress" : "✓ Completed"}
+                        {project.status === "In Progress"
+                            ? `⚡ ${t?.inProgress || "In Progress"}`
+                            : `✓ ${t?.completed || "Completed"}`}
                     </span>
 
                     {/* YouTube video embed */}
@@ -174,10 +188,10 @@ export default function ProjectModal({ project, onClose }) {
 
                     {/* Uzun açıklama */}
                     <p
-                        className="text-sm leading-relaxed mb-6"
-                        style={{ color: "var(--text-muted)" }}
+                        className="text-base leading-relaxed mb-6"
+                        style={{ color: "var(--text-muted)", fontWeight: 450 }}
                     >
-                        {project.longDescription}
+                        {description}
                     </p>
 
                     {/* Teknoloji listesi */}
@@ -186,7 +200,7 @@ export default function ProjectModal({ project, onClose }) {
                             className="font-mono text-xs tracking-widest uppercase mb-3"
                             style={{ color: "var(--text-muted)" }}
                         >
-                            Technologies
+                            {technologiesLabel}
                         </p>
                         <div className="flex flex-wrap gap-2">
                             {project.tech.map((t) => (

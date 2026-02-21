@@ -1,11 +1,12 @@
 /* 
-  layout.js — Güncellendi: Astrophotographer kaldırıldı, favicon eklendi, SEO metadata güncellendi
+  layout.js — LanguageProvider eklendi
 */
 
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/lib/LanguageContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,11 +30,6 @@ export const metadata = {
     "portfolio",
   ],
   authors: [{ name: "Ahmet Ege" }],
-  /*
-    icons: Favicon yapılandırması
-    Next.js App Router'da favicon'ı metadata üzerinden belirtebiliriz.
-    /favicon.png → public/favicon.png dosyası
-  */
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
@@ -54,19 +50,27 @@ export const metadata = {
     description:
       "Software Engineer & Undergraduate Research Assistant at Yeditepe University.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        {/*
+          LanguageProvider: Tüm uygulamayı sarmalıyor.
+          Bu sayede herhangi bir bileşen useLanguage() hook'u ile
+          dil durumuna ve toggle fonksiyonuna erişebilir.
+          
+          Server Component olan layout.js içinde Client Component
+          (LanguageProvider) kullanmak Next.js'de geçerli bir pattern'dir.
+          Sadece Provider ve children'lar client tarafına geçer.
+        */}
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -1,29 +1,37 @@
 "use client";
 /*
-  components/ProjectCard.jsx — İnteraktif proje kartı
+  components/ProjectCard.jsx
   
-  Değişiklikler:
-  - onClick prop ile tıklanabilir hale getirildi
-  - "View Details" butonu eklendi
-  - Hover'da hafif kaldırma efekti korundu
-  - Modal bileşeni Projects.jsx'te yönetilir, kart sadece onClick çağırır
+  Düzeltme: lang artık prop'tan DEĞİL, doğrudan useLanguage() hook'undan geliyor.
+  Bu, prop threading sorununu (lang'ın bir yerden gitme riski) ortadan kaldırır.
+  React Context değiştiğinde bileşen otomatik yeniden render olur.
 */
 
 import { motion } from "framer-motion";
+import { useLanguage } from "@/lib/LanguageContext";
 
-export default function ProjectCard({ project, onClick }) {
-    const { title, shortDescription, tech, status, period, role, coverColor } =
-        project;
+export default function ProjectCard({ project, onClick, t }) {
+    const { lang } = useLanguage(); /* ← Direkt context'ten */
+
+    const {
+        title,
+        shortDescription,
+        shortDescriptionTr,
+        tech,
+        status,
+        role,
+        coverColor,
+    } = project;
+
+    /* Dile göre doğru kısa açıklamayı seç */
+    const description =
+        lang === "tr" && shortDescriptionTr ? shortDescriptionTr : shortDescription;
 
     return (
         <motion.div
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            /*
-              onClick: Kartın herhangi bir yerine tıklanınca modal açılır
-              cursor-pointer: Kullanıcıya tıklanabilir olduğunu gösterir
-            */
             onClick={onClick}
             className="cursor-pointer"
         >
@@ -40,7 +48,7 @@ export default function ProjectCard({ project, onClick }) {
                 />
 
                 <div className="p-6 flex flex-col flex-1">
-                    {/* Üst satır: Status + Yıl */}
+                    {/* Üst satır: Status + ok ikonu */}
                     <div className="flex items-center justify-between mb-4">
                         <span
                             className="font-mono text-xs px-2.5 py-1 rounded-sm"
@@ -50,13 +58,16 @@ export default function ProjectCard({ project, onClick }) {
                                         ? "rgba(242, 202, 80, 0.1)"
                                         : "rgba(100, 255, 218, 0.08)",
                                 color:
-                                    status === "In Progress" ? "var(--gold)" : "var(--accent)",
+                                    status === "In Progress"
+                                        ? "var(--gold)"
+                                        : "var(--accent)",
                             }}
                         >
-                            {status === "In Progress" ? "In Progress" : "Completed"}
+                            {status === "In Progress"
+                                ? t?.inProgress || "In Progress"
+                                : t?.completed || "Completed"}
                         </span>
 
-                        {/* Tıklanabilirliği imo belirtmek için ok ikonu */}
                         <svg
                             className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
                             fill="none"
@@ -82,26 +93,23 @@ export default function ProjectCard({ project, onClick }) {
                     </h3>
 
                     {/* Rol */}
-                    <p
-                        className="font-mono text-xs mb-3"
-                        style={{ color: "var(--accent-dim)" }}
-                    >
+                    <p className="font-mono text-xs mb-3" style={{ color: "var(--accent-dim)" }}>
                         {role}
                     </p>
 
-                    {/* Açıklama */}
+                    {/* Açıklama — dile göre değişiyor */}
                     <p
-                        className="text-sm leading-relaxed mb-5 flex-1"
-                        style={{ color: "var(--text-muted)" }}
+                        className="text-base leading-relaxed mb-5 flex-1"
+                        style={{ color: "var(--text-muted)", fontWeight: 450 }}
                     >
-                        {shortDescription}
+                        {description}
                     </p>
 
                     {/* Tech stack */}
                     <div className="flex flex-wrap gap-1.5 mb-4">
-                        {tech.slice(0, 5).map((t) => (
+                        {tech.slice(0, 5).map((item) => (
                             <span
-                                key={t}
+                                key={item}
                                 className="font-mono text-xs px-2 py-0.5 rounded border"
                                 style={{
                                     color: "var(--text-muted)",
@@ -109,7 +117,7 @@ export default function ProjectCard({ project, onClick }) {
                                     background: "var(--bg-surface)",
                                 }}
                             >
-                                {t}
+                                {item}
                             </span>
                         ))}
                         {tech.length > 5 && (
@@ -122,12 +130,12 @@ export default function ProjectCard({ project, onClick }) {
                         )}
                     </div>
 
-                    {/* Alt link satırı */}
+                    {/* Alt çizgi */}
                     <div
                         className="text-xs flex items-center gap-1 pt-3 border-t"
                         style={{ color: "var(--accent)", borderColor: "var(--border)" }}
                     >
-                        <span>Click to view details</span>
+                        <span>{t?.clickHint || "Click to view details"}</span>
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
