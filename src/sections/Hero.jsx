@@ -41,7 +41,7 @@ export default function Hero() {
             >
                 <motion.p
                     variants={itemVariants}
-                    className="font-mono text-sm mb-5"
+                    className="text-sm font-semibold uppercase tracking-[0.12em] mb-5"
                     style={{ color: "var(--accent)" }}
                 >
                     {t.greeting}
