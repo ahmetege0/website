@@ -274,6 +274,8 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
+  position: fixed;
+  inset: 0;
   background: rgba(13, 27, 46, 0.85);
   backdrop-filter: blur(6px);
   z-index: 100;
@@ -281,4 +283,14 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+}
+
+/* Navbar scrollable center — scrollbar gizlenir */
+.nav-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.nav-scroll::-webkit-scrollbar {
+  display: none;
 }
