@@ -1,5 +1,5 @@
 /* 
-  layout.js — LanguageProvider eklendi
+  layout.js — LanguageProvider + ThemeProvider + SmoothScroll
 */
 
 import { Inter } from "next/font/google";
@@ -7,6 +7,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/lib/LanguageContext";
+import { ThemeProvider } from "@/lib/ThemeContext";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -58,22 +60,26 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} data-theme="dark" suppressHydrationWarning>
+      <head>
+        {/* Blocking script — React hydration'dan ÖNCE doğru temayı set eder.
+            Bu sayede dark→light flash (FOUC) olmaz. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("portfolio-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}else if(window.matchMedia("(prefers-color-scheme:light)").matches){document.documentElement.setAttribute("data-theme","light")}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body>
-        {/*
-          LanguageProvider: Tüm uygulamayı sarmalıyor.
-          Bu sayede herhangi bir bileşen useLanguage() hook'u ile
-          dil durumuna ve toggle fonksiyonuna erişebilir.
-          
-          Server Component olan layout.js içinde Client Component
-          (LanguageProvider) kullanmak Next.js'de geçerli bir pattern'dir.
-          Sadece Provider ve children'lar client tarafına geçer.
-        */}
-        <LanguageProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <SmoothScroll>
+              <Navbar />
+              <main>{children}</main>
+              <Footer />
+            </SmoothScroll>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

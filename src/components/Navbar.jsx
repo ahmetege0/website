@@ -2,17 +2,20 @@
 /*
   components/Navbar.jsx
 
-  Değişiklikler:
-  1. CENTER SECTION → overflow-x-auto (mobilde yatay kaydırılabilir)
-     Kar butonu bu scrollable alana taşındı. İlerde dark mode vs. buraya eklenir.
-  2. handleNavClick → ana sayfada iken/#about tıklanınca sayfa yenilenmeden smooth scroll
-  3. Nav link <a> → flex items-center justify-center | span → leading-none (About hizalama fix)
-  4. SnowEffect geri döndü (scrollable alanda kar ikonu)
+  Özellikler:
+  1. Floating pill nav — aktif linkin altında kayan oval gösterge
+  2. Tema toggle — güneş↔ay animasyonlu dark/light geçişi
+  3. Kar toggle — SnowEffect butonunu scrollable center'da
+  4. Hamburger menü — Photos, Music sayfalarına erişim
+  5. Dil toggle — EN/TR
+  6. Smart nav click — ana sayfada iken smooth scroll, değilse navigasyon
+  7. Tüm renkler CSS değişkenlerinden — tema uyumlu
 */
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
+import { useTheme } from "@/lib/ThemeContext";
 import { translations } from "@/lib/translations";
 import SnowEffect from "@/components/SnowEffect";
 
@@ -22,6 +25,7 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [snowActive, setSnowActive] = useState(false);
     const { lang, toggle } = useLanguage();
+    const { theme, toggleTheme } = useTheme();
     const t = translations[lang].nav;
     const panelRef = useRef(null);
 
@@ -77,17 +81,15 @@ export default function Navbar() {
         return () => document.removeEventListener("mousedown", handler);
     }, [menuOpen]);
 
-    /*
-      Smart nav click:
-      - Ana sayfadaysak (/) → sayfa yenilenmeden smooth scroll
-      - Başka sayfadaysak (music, photos vs.) → normal href navigasyon
-    */
+    /* Smart nav click */
     const handleNavClick = (e, href) => {
         if (typeof window !== "undefined" && window.location.pathname === "/" && href.startsWith("/#")) {
             e.preventDefault();
             document.getElementById(href.replace("/#", ""))?.scrollIntoView({ behavior: "smooth" });
         }
     };
+
+    const isDark = theme === "dark";
 
     return (
         <>
@@ -100,11 +102,11 @@ export default function Navbar() {
                     <div
                         className="flex items-center gap-2 rounded-full px-4 md:px-5 py-2 md:py-2.5"
                         style={{
-                            background: scrolled ? "rgba(13, 27, 46, 0.88)" : "rgba(13, 27, 46, 0.72)",
+                            background: scrolled ? "var(--nav-bg-scrolled)" : "var(--nav-bg)",
                             backdropFilter: "blur(8px)",
                             WebkitBackdropFilter: "blur(8px)",
-                            border: "1px solid rgba(255, 255, 255, 0.07)",
-                            boxShadow: scrolled ? "0 8px 32px rgba(0,0,0,0.4)" : "0 4px 20px rgba(0,0,0,0.25)",
+                            border: "1px solid var(--nav-border)",
+                            boxShadow: scrolled ? "0 8px 32px rgba(0,0,0,0.25)" : "0 4px 20px rgba(0,0,0,0.12)",
                             transition: "background 0.4s ease, box-shadow 0.4s ease",
                         }}
                     >
@@ -118,7 +120,7 @@ export default function Navbar() {
                                 src="/favicon.png"
                                 alt="AE"
                                 className="w-7 h-7 rounded-full"
-                                style={{ border: "1px solid rgba(100,255,218,0.2)" }}
+                                style={{ border: "1px solid var(--border-accent)" }}
                             />
                             <span
                                 className="font-bold text-sm leading-none"
@@ -128,13 +130,7 @@ export default function Navbar() {
                             </span>
                         </a>
 
-                        {/*
-                          ─── CENTER: Yatay kaydırılabilir nav ───────────────────────
-                          Mobilde swipe ile yeni ikonlara erişilebilir:
-                          [About][Experience][Projects][Contact][❄️]  → kaydır →  [future: 🌙 dark mode]
-                          Desktopda justify-center ile ortada görünür.
-                          .nav-scroll → webkit scrollbar gizlenir
-                        */}
+                        {/* ─── CENTER: Yatay kaydırılabilir nav ─── */}
                         <div className="flex-1 overflow-x-auto nav-scroll">
                             <div className="flex items-center md:justify-center" style={{ minWidth: "max-content" }}>
 
@@ -149,12 +145,11 @@ export default function Navbar() {
                                             color: activeSection === link.id ? "var(--text)" : "var(--text-muted)",
                                         }}
                                     >
-                                        {/* Kayan oval pill — sadece aktif link */}
                                         {activeSection === link.id && (
                                             <motion.div
                                                 layoutId="nav-pill"
                                                 className="absolute inset-0 rounded-full"
-                                                style={{ background: "rgba(255,255,255,0.14)" }}
+                                                style={{ background: "var(--nav-pill)" }}
                                                 transition={{ type: "spring", bounce: 0.25, duration: 0.45 }}
                                             />
                                         )}
@@ -164,7 +159,7 @@ export default function Navbar() {
                                     </a>
                                 ))}
 
-                                {/* Kar butonu — scrollable alanda, mobilde swipe ile erişilir */}
+                                {/* Kar butonu */}
                                 <button
                                     onClick={() => setSnowActive((v) => !v)}
                                     className="relative flex items-center justify-center px-2 md:px-3 py-1.5 rounded-full transition-all duration-200 ml-0.5"
@@ -179,7 +174,7 @@ export default function Navbar() {
                                             className="absolute inset-0 rounded-full"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
-                                            style={{ background: "rgba(100,255,218,0.1)" }}
+                                            style={{ background: "var(--accent-glow)" }}
                                         />
                                     )}
                                     <svg
@@ -195,8 +190,61 @@ export default function Navbar() {
                             </div>
                         </div>
 
-                        {/* ─── RIGHT: Hamburger + EN/TR ─── */}
+                        {/* ─── RIGHT: Theme + Hamburger + EN/TR ─── */}
                         <div className="flex items-center gap-1.5 shrink-0" ref={panelRef}>
+
+                            {/* ☀️🌙 Tema toggle butonu */}
+                            <button
+                                onClick={toggleTheme}
+                                className="relative flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200"
+                                style={{
+                                    background: "var(--nav-icon-bg)",
+                                    border: "1px solid var(--nav-icon-border)",
+                                }}
+                                title={isDark
+                                    ? (lang === "tr" ? "Aydınlık mod" : "Light mode")
+                                    : (lang === "tr" ? "Karanlık mod" : "Dark mode")}
+                                aria-label="Toggle theme"
+                            >
+                                <AnimatePresence mode="wait" initial={false}>
+                                    {isDark ? (
+                                        /* Ay ikonu — dark moddayız */
+                                        <motion.svg
+                                            key="moon"
+                                            className="w-3.5 h-3.5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            viewBox="0 0 24 24"
+                                            style={{ color: "var(--accent)" }}
+                                            initial={{ scale: 0, rotate: 90, opacity: 0 }}
+                                            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                                            exit={{ scale: 0, rotate: -90, opacity: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        >
+                                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                                        </motion.svg>
+                                    ) : (
+                                        /* Güneş ikonu — light moddayız */
+                                        <motion.svg
+                                            key="sun"
+                                            className="w-3.5 h-3.5"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth={2}
+                                            viewBox="0 0 24 24"
+                                            style={{ color: "var(--gold)" }}
+                                            initial={{ scale: 0, rotate: -90, opacity: 0 }}
+                                            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                                            exit={{ scale: 0, rotate: 90, opacity: 0 }}
+                                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        >
+                                            <circle cx="12" cy="12" r="5" />
+                                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                                        </motion.svg>
+                                    )}
+                                </AnimatePresence>
+                            </button>
 
                             {/* Hamburger butonu */}
                             <div className="relative">
@@ -204,8 +252,8 @@ export default function Navbar() {
                                     onClick={() => setMenuOpen((v) => !v)}
                                     className="flex flex-col items-center justify-center gap-[4.5px] w-8 h-8 rounded-full transition-all duration-200"
                                     style={{
-                                        background: menuOpen ? "rgba(100,255,218,0.1)" : "rgba(255,255,255,0.06)",
-                                        border: `1px solid ${menuOpen ? "rgba(100,255,218,0.3)" : "rgba(255,255,255,0.09)"}`,
+                                        background: menuOpen ? "var(--accent-glow)" : "var(--nav-icon-bg)",
+                                        border: `1px solid ${menuOpen ? "var(--border-accent)" : "var(--nav-icon-border)"}`,
                                     }}
                                     aria-label="Open menu"
                                     aria-expanded={menuOpen}
@@ -234,11 +282,11 @@ export default function Navbar() {
                                             transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                                             className="absolute top-full mt-3 right-0 rounded-2xl p-2 w-52"
                                             style={{
-                                                background: "rgba(16, 26, 44, 0.97)",
+                                                background: "var(--panel-bg)",
                                                 backdropFilter: "blur(24px)",
                                                 WebkitBackdropFilter: "blur(24px)",
-                                                border: "1px solid rgba(255,255,255,0.08)",
-                                                boxShadow: "0 20px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(100,255,218,0.04)",
+                                                border: "1px solid var(--panel-border)",
+                                                boxShadow: "0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px var(--accent-glow)",
                                             }}
                                         >
                                             <p className="text-[9px] font-semibold uppercase tracking-widest px-3 pt-1.5 pb-2"
@@ -251,7 +299,7 @@ export default function Navbar() {
                                                     key={item.href}
                                                     href={item.href}
                                                     className="flex items-center gap-3 px-3 py-2.5 rounded-xl no-underline transition-all duration-150"
-                                                    onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}
+                                                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--panel-hover)"; }}
                                                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
                                                     onClick={() => setMenuOpen(false)}
                                                 >
@@ -274,9 +322,9 @@ export default function Navbar() {
                             <button
                                 onClick={toggle}
                                 className="flex items-center gap-0.5 px-2.5 py-1.5 rounded-full transition-all duration-200"
-                                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.09)" }}
-                                onMouseEnter={(e) => { e.currentTarget.style.background = "rgba(100,255,218,0.08)"; e.currentTarget.style.borderColor = "rgba(100,255,218,0.25)"; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.09)"; }}
+                                style={{ background: "var(--nav-icon-bg)", border: "1px solid var(--nav-icon-border)" }}
+                                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--accent-glow)"; e.currentTarget.style.borderColor = "var(--border-accent)"; }}
+                                onMouseLeave={(e) => { e.currentTarget.style.background = "var(--nav-icon-bg)"; e.currentTarget.style.borderColor = "var(--nav-icon-border)"; }}
                                 aria-label="Toggle language"
                             >
                                 <span className="font-semibold text-[10px] md:text-xs" style={{ color: lang === "en" ? "var(--accent)" : "var(--text-dim)" }}>EN</span>

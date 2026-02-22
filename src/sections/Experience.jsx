@@ -60,7 +60,7 @@ export default function Experience() {
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.background = "var(--bg-card)";
                                 e.currentTarget.style.borderColor = "var(--border-accent)";
-                                e.currentTarget.style.boxShadow = "0 0 30px rgba(100,255,218,0.05), 0 8px 32px rgba(0,0,0,0.2)";
+                                e.currentTarget.style.boxShadow = "0 0 30px var(--accent-glow), 0 8px 32px rgba(0,0,0,0.15)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.background = "transparent";
@@ -102,7 +102,7 @@ export default function Experience() {
                                             <span
                                                 key={tech}
                                                 className="font-mono text-xs px-3 py-1 rounded-full"
-                                                style={{ color: "var(--accent)", background: "rgba(100, 255, 218, 0.08)", border: "1px solid rgba(100, 255, 218, 0.15)" }}
+                                                style={{ color: "var(--accent)", background: "var(--tech-badge-bg)", border: "1px solid var(--tech-badge-border)" }}
                                             >
                                                 {tech}
                                             </span>

@@ -88,7 +88,7 @@ export default function Hero() {
                         <span
                             key={tech}
                             className="font-mono text-xs px-3 py-1 rounded border"
-                            style={{ color: "var(--text-muted)", borderColor: "var(--border)", background: "rgba(100, 255, 218, 0.03)" }}
+                            style={{ color: "var(--text-muted)", borderColor: "var(--border)", background: "var(--tech-badge-bg)" }}
                         >
                             {tech}
                         </span>

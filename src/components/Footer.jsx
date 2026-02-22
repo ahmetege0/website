@@ -14,7 +14,7 @@ export default function Footer() {
                 <div className="flex items-center gap-3">
                     <span
                         className="w-7 h-7 flex items-center justify-center rounded text-xs font-black font-mono"
-                        style={{ background: "rgba(100, 255, 218, 0.1)", color: "var(--accent)", border: "1px solid var(--border-accent)" }}
+                        style={{ background: "var(--accent-glow)", color: "var(--accent)", border: "1px solid var(--border-accent)" }}
                     >
                         AE
                     </span>
@@ -38,7 +38,7 @@ export default function Footer() {
                             style={{ color: "var(--text-dim)" }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.color = "var(--accent)";
-                                e.currentTarget.style.background = "rgba(100, 255, 218, 0.06)";
+                                e.currentTarget.style.background = "var(--accent-glow)";
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.color = "var(--text-dim)";
