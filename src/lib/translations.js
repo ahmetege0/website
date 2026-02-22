@@ -34,14 +34,14 @@ export const translations = {
                         { t: "I am a ", style: "muted" },
                         { t: "Computer Engineering student", style: "text" },
                         { t: " at Yeditepe University (Expected June 2027), enrolled on a ", style: "muted" },
-                        { t: "Full Merit Scholarship", style: "accent" },
+                        { t: "Full Merit Scholarship", style: "gold" },
                         { t: " based on my YKS ranking of 2,158 out of 2.5M+ students.", style: "muted" },
                     ],
                 },
                 {
                     parts: [
                         { t: "As an ", style: "muted" },
-                        { t: "Undergraduate Research Assistant at SERG", style: "text" },
+                        { t: "Undergraduate Research Assistant at SERG", style: "gold" },
                         { t: ", I contribute to large-scale projects including the Smart Parking Management System (20+ member team) and an AI-Powered Driver Guidance System.", style: "muted" },
                     ],
                 },
@@ -57,7 +57,7 @@ export const translations = {
                 {
                     parts: [
                         { t: "Outside engineering, I serve as ", style: "muted" },
-                        { t: "Sponsorship Coordinator at IEEE Yeditepe", style: "gold" },
+                        { t: "Sponsorship Coordinator at IEEE Yeditepe", style: "accent" },
                         { t: ", managing corporate relations and leading team initiatives.", style: "muted" },
                     ],
                 },
@@ -157,14 +157,14 @@ export const translations = {
                         { t: "Yeditepe Üniversitesi'nde ", style: "muted" },
                         { t: "Bilgisayar Mühendisliği", style: "text" },
                         { t: " öğrencisiyim (Beklenen mezuniyet: Haziran 2027). YKS'de 2,5M+ aday arasında 2.158. sırayı alarak ", style: "muted" },
-                        { t: "Tam Burs", style: "accent" },
+                        { t: "Tam Burs", style: "gold" },
                         { t: " ile okumaktayım.", style: "muted" },
                     ],
                 },
                 {
                     parts: [
                         { t: "SERG'de ", style: "muted" },
-                        { t: "Lisans Araştırma Asistanı", style: "text" },
+                        { t: "Lisans Araştırma Asistanı", style: "gold" },
                         { t: " olarak Smart Parking Management System (20+ kişilik ekip) ve AI Tabanlı Sürücü Rehberlik Sistemi gibi büyük ölçekli projelere katkıda bulunuyorum.", style: "muted" },
                     ],
                 },
@@ -179,7 +179,7 @@ export const translations = {
                 {
                     parts: [
                         { t: "Mühendislik dışında ", style: "muted" },
-                        { t: "IEEE Yeditepe'de Sponsorluk Koordinatörü", style: "gold" },
+                        { t: "IEEE Yeditepe'de Sponsorluk Koordinatörü", style: "accent" },
                         { t: " olarak kurumsal ilişkileri yönetiyor ve ekip girişimlerine liderlik ediyorum.", style: "muted" },
                     ],
                 },
