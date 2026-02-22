@@ -56,7 +56,7 @@ export default function ProjectCard({ project, onClick, t }) {
                                 background:
                                     status === "In Progress"
                                         ? "rgba(242, 202, 80, 0.1)"
-                                        : "rgba(100, 255, 218, 0.08)",
+                                        : "var(--tech-badge-bg)",
                                 color:
                                     status === "In Progress"
                                         ? "var(--gold)"

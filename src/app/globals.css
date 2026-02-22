@@ -1,60 +1,133 @@
-/* globals.css — Sofistike Yeniden Tasarım
-   Referans: brittanychiang.com tarzı — temiz, profesyonel, minimal
-   Renk paleti: Kullanıcının lacivert+teal paletinden sofistike versiyon
+/* globals.css — Dark/Light Theme System
+   Dark: #0d1b2e lacivert palet (Brittany Chiang inspired)
+   Light: Temiz slate/teal palet
+   Tema geçişi: data-theme attribute ile CSS değişkenleri değişir
 */
 
 @import "tailwindcss";
 
-:root {
-  /* === ANA RENKLER ===
-     #0d1b2e: Brittany tarzı ışık alan koyu lacivert — pure black kadar karanlık değil
-     Kullanıcının #010626 → #022859 paletinden ilham alınan daha modern ton
-  */
+/* ═══════════════════════════════════════════
+   DARK THEME (default)
+   ═══════════════════════════════════════════ */
+:root,
+[data-theme="dark"] {
   --bg: #0d1b2e;
   --bg-surface: #162033;
-  /* Bölümler arası hafif kontrast */
   --bg-card: #1c2d45;
-  /* Kart arka planı */
   --bg-elevated: #233554;
-  /* Hover elemanlar */
 
-  /* Kenarlıklar */
   --border: rgba(100, 200, 200, 0.08);
   --border-accent: rgba(100, 255, 218, 0.25);
 
-  /* === VURGU RENKLERİ ===
-     #64ffda: Klasik profesyonel mint/teal — neon yeşil değil, rafine
-     Brittany'nin kullandığı ton, CSS dünyasında "junior dev icon rengi" :)
-  */
   --accent: #64ffda;
   --accent-dim: #38b89a;
-  /* Daha loş ton */
   --accent-glow: rgba(100, 255, 218, 0.12);
 
-  /* Kullanıcının paletinden yardımcı renkler */
   --blue: #2481a6;
   --gold: #f2ca50;
 
-  /* Metin */
   --text: #e2e8f0;
-  /* Hafif mavi-beyaz */
   --text-muted: #8892b0;
-  /* Muted — Brittany tarzı */
   --text-dim: #4a5568;
+
+  /* Navbar */
+  --nav-bg: rgba(13, 27, 46, 0.72);
+  --nav-bg-scrolled: rgba(13, 27, 46, 0.88);
+  --nav-border: rgba(255, 255, 255, 0.07);
+  --nav-pill: rgba(255, 255, 255, 0.14);
+  --nav-hover: rgba(255, 255, 255, 0.05);
+  --nav-icon-bg: rgba(255, 255, 255, 0.06);
+  --nav-icon-border: rgba(255, 255, 255, 0.09);
+
+  /* Hamburger panel */
+  --panel-bg: rgba(16, 26, 44, 0.97);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --panel-hover: rgba(255, 255, 255, 0.05);
+
+  /* Misc */
+  --photo-overlay: rgba(13, 27, 46, 0.5);
+  --modal-overlay: rgba(13, 27, 46, 0.85);
+  --tech-badge-bg: rgba(100, 255, 218, 0.08);
+  --tech-badge-border: rgba(100, 255, 218, 0.15);
+  --selection-bg: rgba(100, 255, 218, 0.18);
 
   /* Font */
   --font-sans: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+
+  color-scheme: dark;
+}
+
+/* ═══════════════════════════════════════════
+   LIGHT THEME
+   ═══════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg: #f5f3f0;
+  --bg-surface: #edeae6;
+  --bg-card: #faf9f7;
+  --bg-elevated: #e8e5e0;
+
+  --border: rgba(15, 23, 42, 0.1);
+  --border-accent: rgba(13, 148, 136, 0.3);
+
+  --accent: #0d9488;
+  --accent-dim: #14b8a6;
+  --accent-glow: rgba(13, 148, 136, 0.1);
+
+  --blue: #0284c7;
+  --gold: #ca8a04;
+
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #94a3b8;
+
+  /* Navbar — siteden biraz daha koyu, ayrışık */
+  --nav-bg: rgba(232, 229, 224, 0.72);
+  --nav-bg-scrolled: rgba(232, 229, 224, 0.92);
+  --nav-border: rgba(15, 23, 42, 0.1);
+  --nav-pill: rgba(15, 23, 42, 0.07);
+  --nav-hover: rgba(15, 23, 42, 0.04);
+  --nav-icon-bg: rgba(15, 23, 42, 0.05);
+  --nav-icon-border: rgba(15, 23, 42, 0.1);
+
+  /* Hamburger panel */
+  --panel-bg: rgba(250, 249, 247, 0.97);
+  --panel-border: rgba(15, 23, 42, 0.1);
+  --panel-hover: rgba(15, 23, 42, 0.04);
+
+  /* Misc */
+  --photo-overlay: rgba(245, 243, 240, 0.35);
+  --modal-overlay: rgba(245, 243, 240, 0.85);
+  --tech-badge-bg: rgba(13, 148, 136, 0.08);
+  --tech-badge-border: rgba(13, 148, 136, 0.2);
+  --selection-bg: rgba(13, 148, 136, 0.15);
+
+  color-scheme: light;
+}
+
+/* ═══════════════════════════════════════════
+   THEME TRANSITION
+   ═══════════════════════════════════════════ */
+html {
+  scroll-behavior: smooth;
+}
+
+/*
+  Tema geçiş animasyonu — sadece toggleTheme sırasında aktif
+  ThemeContext .theme-transitioning class'ını ekler/kaldırır
+  Bu sayede normal render'larda flash olmaz
+*/
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.2s ease, box-shadow 0.3s ease !important;
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -66,7 +139,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Özelleştirilmiş scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -86,15 +159,13 @@ body {
 
 /* Metin seçimi */
 ::selection {
-  background: rgba(100, 255, 218, 0.18);
+  background: var(--selection-bg);
   color: var(--accent);
 }
 
-/* === ANİMASYONLAR ===
-   Sadece zorunlu olanlar — sade kalıyoruz
-*/
-
-/* Orb float animasyonu — çok hafif, neredeyse fark edilmez */
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════ */
 @keyframes drift-1 {
 
   0%,
@@ -119,7 +190,6 @@ body {
   }
 }
 
-/* Fade in — sayfaya giriş animasyonu */
 @keyframes fade-in-up {
   from {
     opacity: 0;
@@ -132,7 +202,6 @@ body {
   }
 }
 
-/* Yanıp sönen cursor efekti */
 @keyframes blink {
 
   0%,
@@ -145,13 +214,9 @@ body {
   }
 }
 
-/* === YARDIMCI SINIFLAR === */
-
-/*
-  text-gradient: Gradient metin
-  NOT: Animasyon kaldırıldı (gradient-shift yoktu, sabit gradient)
-  Sade duruyor, göz yormaz
-*/
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════ */
 .text-gradient {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dim) 100%);
   -webkit-background-clip: text;
@@ -159,19 +224,17 @@ body {
   background-clip: text;
 }
 
-/* Mono font — kod, slug, tarih gibi teknik metinler için */
 .font-mono {
   font-family: var(--font-mono);
 }
 
-/* Orb animasyolu arka plan elemanı */
 .orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(100px);
 }
 
-/* Kart temel stili */
+/* Card */
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -181,10 +244,10 @@ body {
 
 .card:hover {
   border-color: var(--border-accent);
-  box-shadow: 0 0 24px rgba(100, 255, 218, 0.06), 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 24px var(--accent-glow), 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Buton stilleri */
+/* Buttons */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -193,7 +256,6 @@ body {
   background: var(--accent);
   color: var(--bg);
   border-radius: 4px;
-  /* Brittany tarzı — daha az yuvarlak */
   font-weight: 700;
   font-size: 0.875rem;
   letter-spacing: 0.05em;
@@ -207,7 +269,7 @@ body {
 .btn-primary:hover {
   background: transparent;
   color: var(--accent);
-  box-shadow: inset 0 0 0 1px var(--accent), 0 0 20px rgba(100, 255, 218, 0.15);
+  box-shadow: inset 0 0 0 1px var(--accent), 0 0 20px var(--accent-glow);
 }
 
 .btn-outline {
@@ -229,24 +291,18 @@ body {
 }
 
 .btn-outline:hover {
-  background: rgba(100, 255, 218, 0.08);
-  box-shadow: 0 0 20px rgba(100, 255, 218, 0.1);
+  background: var(--accent-glow);
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
-/* Section düzeni */
+/* Section layout */
 .section {
   padding: 6rem 1.5rem;
   max-width: 1100px;
   margin: 0 auto;
 }
 
-/*
-  section-label: Bölüm başlığı üzerindeki küçük etiket
-  - font-mono → sans-serif (daha okunaklı)
-  - Boyut artırıldı
-  - Sol tarafta ince mint çizgi (::before) — dekoratif, sayı yerine
-  - Sayılar (01. 02.) translations.js'ten kaldırıldı
-*/
+/* Section label */
 .section-label {
   display: inline-flex;
   align-items: center;
@@ -270,13 +326,11 @@ body {
   flex-shrink: 0;
 }
 
-/* Modal arka plan overlay */
+/* Modal overlay */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  position: fixed;
-  inset: 0;
-  background: rgba(13, 27, 46, 0.85);
+  background: var(--modal-overlay);
   backdrop-filter: blur(6px);
   z-index: 100;
   display: flex;
@@ -285,7 +339,7 @@ body {
   padding: 1rem;
 }
 
-/* Navbar scrollable center — scrollbar gizlenir */
+/* Navbar scrollable center */
 .nav-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -293,4 +347,22 @@ body {
 
 .nav-scroll::-webkit-scrollbar {
   display: none;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }

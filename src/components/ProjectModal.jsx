@@ -90,7 +90,7 @@ export default function ProjectModal({ project, onClose, t }) {
                 style={{
                     background: "var(--bg-card)",
                     border: "1px solid var(--border-accent)",
-                    boxShadow: "0 0 60px rgba(100, 255, 218, 0.08), 0 25px 60px rgba(0,0,0,0.5)",
+                    boxShadow: "0 0 60px var(--accent-glow), 0 25px 60px rgba(0,0,0,0.3)",
                 }}
             >
                 {/* Üst renkli çubuk */}

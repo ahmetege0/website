@@ -118,7 +118,7 @@ export default function About() {
                                 {!imgError && (
                                     <div
                                         className="absolute inset-0"
-                                        style={{ background: "linear-gradient(to top, rgba(13,27,46,0.5) 0%, transparent 60%)" }}
+                                        style={{ background: "linear-gradient(to top, var(--photo-overlay) 0%, transparent 60%)" }}
                                     />
                                 )}
                             </div>
