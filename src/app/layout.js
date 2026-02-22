@@ -31,8 +31,11 @@ export const metadata = {
   ],
   authors: [{ name: "Ahmet Ege" }],
   icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
     apple: "/favicon.png",
   },
   openGraph: {
