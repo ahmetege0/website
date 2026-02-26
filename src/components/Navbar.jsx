@@ -28,6 +28,8 @@ export default function Navbar() {
     const { theme, toggleTheme } = useTheme();
     const t = translations[lang].nav;
     const panelRef = useRef(null);
+    const navScrollRef = useRef(null);   // mobil nav scroll container
+    const linkRefs = useRef({});          // her nav link için ref
 
     const navLinks = [
         { href: "/#about", id: "about", label: t.about },
@@ -68,6 +70,20 @@ export default function Navbar() {
         });
         return () => obs.forEach((io) => io?.disconnect());
     }, []);
+
+    /* Aktif section değişince mobil nav'ı o linke smooth scroll yap */
+    useEffect(() => {
+        const container = navScrollRef.current;
+        const activeLink = linkRefs.current[activeSection];
+        if (!container || !activeLink) return;
+        const containerWidth = container.offsetWidth;
+        const linkLeft = activeLink.offsetLeft;
+        const linkWidth = activeLink.offsetWidth;
+        container.scrollTo({
+            left: linkLeft - containerWidth / 2 + linkWidth / 2,
+            behavior: "smooth",
+        });
+    }, [activeSection]);
 
     /* Close panel on outside click */
     useEffect(() => {
@@ -132,7 +148,7 @@ export default function Navbar() {
                         </a>
 
                         {/* ─── CENTER: Yatay kaydırılabilir nav ─── */}
-                        <div className="flex-1 overflow-x-auto nav-scroll">
+                        <div className="flex-1 overflow-x-auto nav-scroll" ref={navScrollRef}>
                             <div className="flex items-center md:justify-center" style={{ minWidth: "max-content" }}>
 
                                 {/* Nav linkleri */}
@@ -140,6 +156,7 @@ export default function Navbar() {
                                     <a
                                         key={link.href}
                                         href={link.href}
+                                        ref={(el) => { linkRefs.current[link.id] = el; }}
                                         onClick={(e) => handleNavClick(e, link.href)}
                                         className="relative flex items-center justify-center px-2 md:px-3 py-1.5 md:py-2 rounded-full transition-colors duration-200 no-underline select-none"
                                         style={{

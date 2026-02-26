@@ -122,6 +122,7 @@ export const translations = {
                 { label: "GitHub", value: "@ahmetege0", description: "Code & repositories" },
                 { label: "LinkedIn", value: "ahmet-ege-cse", description: "Professional network" },
                 { label: "Email", value: "aege0601@gmail.com", description: "Direct message" },
+                { label: "Phone", value: "+90 552 705 49 64", description: "Call or WhatsApp" },
             ],
         },
 
@@ -244,6 +245,7 @@ export const translations = {
                 { label: "GitHub", value: "@ahmetege0", description: "Kod & projeler" },
                 { label: "LinkedIn", value: "ahmet-ege-cse", description: "Profesyonel ağ" },
                 { label: "Email", value: "aege0601@gmail.com", description: "Doğrudan mesaj" },
+                { label: "Telefon", value: "+90 552 705 49 64", description: "Ara veya WhatsApp" },
             ],
         },
 
