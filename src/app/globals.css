@@ -340,6 +340,7 @@ body {
 }
 
 /* Navbar scrollable center */
+/* Navbar smooth scroll */
 .nav-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -347,6 +348,39 @@ body {
 
 .nav-scroll::-webkit-scrollbar {
   display: none;
+}
+
+/*
+  Tema toggle ikonu — CSS ile kontrol edilir, React state'ine bağlı değil.
+  Blocking script data-theme'i ilk paint'ten önce set ettiğinden ikon hiç flash yapmaz.
+  .theme-transitioning eklenince CSS transition devreye girer → animasyonlu geçiş.
+*/
+.nav-theme-moon,
+.nav-theme-sun {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.4) rotate(90deg);
+  pointer-events: none;
+}
+
+html.theme-transitioning .nav-theme-moon,
+html.theme-transitioning .nav-theme-sun {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+[data-theme="dark"] .nav-theme-moon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  pointer-events: auto;
+}
+
+[data-theme="light"] .nav-theme-sun {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+  pointer-events: auto;
 }
 
 /* Lenis smooth scroll */

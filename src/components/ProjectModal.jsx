@@ -31,6 +31,15 @@ export default function ProjectModal({ project, onClose, t }) {
 
     const technologiesLabel =
         translations[lang]?.projects?.technologies || "Technologies";
+
+    /* **metin** → <strong> dönüşümü */
+    const renderBold = (text) =>
+        text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+            part.startsWith("**") && part.endsWith("**")
+                ? <strong key={i} style={{ color: "var(--text)", fontWeight: 700 }}>{part.slice(2, -2)}</strong>
+                : part
+        );
+
     /*
       useEffect: Escape tuşu ile modalı kapatmak için
       'keydown' event listener ekleyip temizliyoruz
@@ -45,13 +54,25 @@ export default function ProjectModal({ project, onClose, t }) {
     }, [onClose]);
 
     /*
-      Ayrıca modal açıkken body scroll'u kilitle
-      Bu klasik UX pratiği — arka plan kaymasın
+      Modal açıkken arka plan scroll'unu kilitle.
+      body.position=fixed KULLANMA — bu modalın iç scroll'unu bozar.
+      Bunun yerine:
+      1. Lenis'i durdur (data-lenis-stop)
+      2. Html'ye overflow:hidden ekle (native wheel event'leri engelle)
+      3. Kapanınca scroll pozisyonunu restore et
     */
     useEffect(() => {
-        document.body.style.overflow = "hidden";
+        const scrollY = window.scrollY;
+        // Lenis'e durdur sinyali
+        document.documentElement.setAttribute("data-lenis-stop", "true");
+        // Native scroll'u da engelle (Lenis yoksa / mobil)
+        document.documentElement.style.overflow = "hidden";
+
         return () => {
-            document.body.style.overflow = "";
+            document.documentElement.removeAttribute("data-lenis-stop");
+            document.documentElement.style.overflow = "";
+            // Scroll pozisyonunu geri yükle
+            window.scrollTo({ top: scrollY, behavior: "instant" });
         };
     }, []);
 
@@ -81,6 +102,7 @@ export default function ProjectModal({ project, onClose, t }) {
         (overlay'in onClick'ini tetikleme)
       */}
             <motion.div
+                data-lenis-prevent          /* Lenis bu element'e karışmasın, native scroll çalışsın */
                 initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -186,13 +208,43 @@ export default function ProjectModal({ project, onClose, t }) {
                         </div>
                     )}
 
-                    {/* Uzun açıklama */}
-                    <p
-                        className="text-base leading-relaxed mb-6"
-                        style={{ color: "var(--text-muted)", fontWeight: 450 }}
-                    >
-                        {description}
-                    </p>
+                    {/* Ekran görüntüleri galerisi */}
+                    {project.images?.length > 0 && (
+                        <div className="mb-6">
+                            <img
+                                src={project.images[0]}
+                                alt={`${project.title} screenshot 1`}
+                                className="w-full rounded-lg mb-2 object-cover"
+                                style={{ maxHeight: "320px", border: "1px solid var(--border)" }}
+                            />
+                            {project.images.length > 1 && (
+                                <div className="grid grid-cols-2 gap-2">
+                                    {project.images.slice(1).map((src, i) => (
+                                        <img
+                                            key={i}
+                                            src={src}
+                                            alt={`${project.title} screenshot ${i + 2}`}
+                                            className="w-full rounded-lg object-cover"
+                                            style={{ maxHeight: "160px", border: "1px solid var(--border)" }}
+                                        />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Uzun açıklama — \n\n'e göre paragraflara bölünür */}
+                    <div className="mb-6 flex flex-col gap-3">
+                        {description.split("\n\n").map((para, i) => (
+                            <p
+                                key={i}
+                                className="text-base leading-relaxed"
+                                style={{ color: "var(--text-muted)", fontWeight: 450 }}
+                            >
+                                {renderBold(para)}
+                            </p>
+                        ))}
+                    </div>
 
                     {/* Teknoloji listesi */}
                     <div className="mb-6">
