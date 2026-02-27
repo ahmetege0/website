@@ -21,6 +21,7 @@ export const translations = {
             description:
                 "Software Engineer & Undergraduate Research Assistant at SERG, Yeditepe University. Focused on backend systems with Java Spring Boot, Python, and microservice architectures.",
             cta: "View My Work",
+            downloadCv: "Download CV",
             techLabel: "Stack",
         },
 
@@ -146,6 +147,7 @@ export const translations = {
             description:
                 "SERG, Yeditepe Üniversitesi bünyesinde Yazılım Mühendisi ve Lisans Araştırma Asistanıyım. Java Spring Boot, Python ve mikroservis mimarilerinde backend sistemlerine odaklanıyorum.",
             cta: "Projelerimi Gör",
+            downloadCv: "CV İNDİR",
             techLabel: "Teknolojiler",
         },
 

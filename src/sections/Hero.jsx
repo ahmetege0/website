@@ -78,6 +78,16 @@ export default function Hero() {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                     </a>
+                    <a
+                        href="/cv.pdf"
+                        download
+                        className="btn-outline"
+                    >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        {t.downloadCv}
+                    </a>
                     <a href="https://github.com/ahmetege0" target="_blank" rel="noopener noreferrer" className="btn-outline">
                         GitHub
                     </a>
