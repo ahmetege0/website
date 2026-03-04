@@ -1,9 +1,8 @@
 "use client";
 /*
-  components/SmoothScroll.jsx — Lenis smooth scroll wrapper
-
-  Desktop'ta Instagram/reasonal.co tarzı inertia scrolling sağlar.
-  data-lenis-stop attribute'u eklendiğinde (örn. modal açıkken) Lenis pause yapılır.
+  SmoothScroll.jsx — Lenis smooth scroll wrapper
+  GSAP ScrollTrigger ile senkronize: lenis.on('scroll', ScrollTrigger.update)
+  scrollerProxy KULLANILMIYOR — timing race condition ve flash yaratıyordu.
 */
 
 import { useEffect, useRef } from "react";
@@ -15,7 +14,13 @@ export default function SmoothScroll({ children }) {
         let lenis;
         let rafId;
 
-        import("lenis").then(({ default: Lenis }) => {
+        Promise.all([
+            import("lenis"),
+            import("gsap").then(({ gsap }) => gsap),
+            import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => ScrollTrigger),
+        ]).then(([{ default: Lenis }, gsap, ScrollTrigger]) => {
+            gsap.registerPlugin(ScrollTrigger);
+
             lenis = new Lenis({
                 duration: 1.2,
                 easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -27,33 +32,31 @@ export default function SmoothScroll({ children }) {
 
             lenisRef.current = lenis;
 
-            function raf(time) {
-                lenis.raf(time);
-                rafId = requestAnimationFrame(raf);
-            }
-            rafId = requestAnimationFrame(raf);
+            // Lenis scroll → GSAP ScrollTrigger güncelle (scrollerProxy olmadan)
+            lenis.on("scroll", ScrollTrigger.update);
 
-            /* data-lenis-stop attribute'unu dinle — modal gibi overlay'ler için */
+            lenisRef._update = (time) => {
+                lenis.raf(time * 1000);
+            };
+
+            gsap.ticker.add(lenisRef._update);
+            gsap.ticker.lagSmoothing(0);
+
+            /* data-lenis-stop attribute'unu dinle */
             const observer = new MutationObserver(() => {
                 const shouldStop = document.documentElement.hasAttribute("data-lenis-stop");
-                if (shouldStop) {
-                    lenis.stop();
-                } else {
-                    lenis.start();
-                }
+                if (shouldStop) lenis.stop();
+                else lenis.start();
             });
-
             observer.observe(document.documentElement, {
                 attributes: true,
                 attributeFilter: ["data-lenis-stop"],
             });
-
-            // Observer'ı cleanup'a ekle
             lenisRef._observer = observer;
         });
 
         return () => {
-            if (rafId) cancelAnimationFrame(rafId);
+            if (lenisRef.current && lenisRef._update) gsap.ticker.remove(lenisRef._update);
             if (lenis) lenis.destroy();
             if (lenisRef._observer) lenisRef._observer.disconnect();
         };
