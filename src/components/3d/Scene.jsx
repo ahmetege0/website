@@ -10,7 +10,7 @@
 
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { Environment, PerspectiveCamera } from '@react-three/drei'
 import MotherboardModel, { CPU_ASSEMBLED, RAM_ASSEMBLED, M2_ASSEMBLED, BRACKET_ASSEMBLED, COVER_ASSEMBLED, CHIPSET_ASSEMBLED, PLATE_ASSEMBLED } from './MotherboardModel'
@@ -257,6 +257,17 @@ function SceneContent() {
 
 // ─── Canvas ───────────────────────────────────────────────────────────────────
 export default function Scene() {
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 1024)
+        checkMobile()
+        window.addEventListener('resize', checkMobile)
+        return () => window.removeEventListener('resize', checkMobile)
+    }, [])
+
+    if (isMobile) return null
+
     return (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, pointerEvents: 'none' }}>
             <Canvas shadows gl={{ antialias: true, alpha: true }} style={{ background: 'transparent' }} dpr={[1, 1.5]}>
@@ -265,3 +276,4 @@ export default function Scene() {
         </div>
     )
 }
+
