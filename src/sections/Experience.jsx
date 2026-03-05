@@ -12,7 +12,7 @@ export default function Experience() {
         <section id="experience" className="relative py-28">
             <div className="max-w-7xl mx-auto px-6">
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: "0", alignItems: "start" }}>
+                <div className="md:grid" style={{ gridTemplateColumns: "1fr auto 1fr", gap: "0", alignItems: "start" }}>
 
                     {/* ── Sol kolon: Timeline ── */}
                     <div style={{ maxWidth: "520px" }}>
@@ -183,6 +183,7 @@ export default function Experience() {
 
                     {/* ── Orta: Dikey ayırıcı çizgi ── */}
                     <div
+                        className="hidden md:block"
                         style={{
                             width: "1px",
                             alignSelf: "stretch",
@@ -193,7 +194,7 @@ export default function Experience() {
                     />
 
                     {/* ── Sağ kolon: 3D model alanı ── */}
-                    <div style={{ minHeight: "400px" }} />
+                    <div className="hidden md:block" style={{ minHeight: "400px" }} />
                 </div>
             </div>
         </section>
