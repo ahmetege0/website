@@ -28,10 +28,6 @@ export default function Hero() {
                 className="orb absolute w-[500px] h-[500px] bottom-0 right-0"
                 style={{ background: "var(--blue)", opacity: 0.05, animation: "drift-2 25s ease-in-out infinite" }}
             />
-            <div
-                className="absolute bottom-0 left-0 right-0 h-40"
-                style={{ background: "linear-gradient(to top, var(--bg) 0%, transparent 100%)" }}
-            />
 
             <motion.div
                 className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-20 w-full"
@@ -57,8 +53,8 @@ export default function Hero() {
 
                 <motion.h2
                     variants={itemVariants}
-                    className="text-3xl md:text-5xl font-black tracking-tight leading-none mb-8"
-                    style={{ color: "var(--text-muted)" }}
+                    className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-8"
+                    style={{ color: "var(--text-muted)", whiteSpace: "pre-line" }}
                 >
                     {t.tagline}
                 </motion.h2>
@@ -106,23 +102,6 @@ export default function Hero() {
                 </motion.div>
             </motion.div>
 
-            <motion.div
-                className="absolute bottom-8 left-1/2 -translate-x-1/2"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            >
-                <div
-                    className="w-5 h-9 rounded-full border-2 flex items-start justify-center p-1"
-                    style={{ borderColor: "var(--text-dim)" }}
-                >
-                    <motion.div
-                        className="w-1 h-2 rounded-full"
-                        style={{ background: "var(--accent)" }}
-                        animate={{ y: [0, 10, 0] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                </div>
-            </motion.div>
         </section>
     );
 }

@@ -12,8 +12,10 @@
 :root,
 [data-theme="dark"] {
   --bg: #0d1b2e;
+  --bg-rgb: 13, 27, 46;
   --bg-surface: #162033;
   --bg-card: #1c2d45;
+  --bg-card-rgb: 28, 45, 69;
   --bg-elevated: #233554;
 
   --border: rgba(100, 200, 200, 0.08);
@@ -63,8 +65,10 @@
    ═══════════════════════════════════════════ */
 [data-theme="light"] {
   --bg: #f5f3f0;
+  --bg-rgb: 245, 243, 240;
   --bg-surface: #edeae6;
   --bg-card: #faf9f7;
+  --bg-card-rgb: 250, 249, 247;
   --bg-elevated: #e8e5e0;
 
   --border: rgba(15, 23, 42, 0.1);

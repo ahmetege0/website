@@ -37,7 +37,11 @@ export default function ProjectCard({ project, onClick, t }) {
         >
             <div
                 className="card h-full flex flex-col overflow-hidden rounded-xl group"
-                style={{ background: "var(--bg-card)" }}
+                style={{
+                    background: "rgba(var(--bg-card-rgb), 0.55)",
+                    backdropFilter: "blur(12px)",
+                    WebkitBackdropFilter: "blur(12px)",
+                }}
             >
                 {/* Üst renkli çubuk */}
                 <div
