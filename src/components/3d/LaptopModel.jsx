@@ -4,13 +4,20 @@
   showForm prop YOK — Html her zaman render edilir, scale=0.001'de otomatik invisible.
 */
 
-import React, { useRef, forwardRef, useImperativeHandle } from 'react'
+import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { useGLTF, Html } from '@react-three/drei'
 import LaptopScreenContent from './LaptopScreenContent'
 
 const LaptopModel = forwardRef(function LaptopModel({ groupRef, ...props }, ref) {
     const { nodes, materials } = useGLTF('/asus_laptop.glb')
     const screenRef = useRef()
+
+    // Drei Html'i page.js'teki portal div'ine monte et (z-index:100 stacking context'inde)
+    const [htmlPortal, setHtmlPortal] = useState(null)
+    useEffect(() => {
+        const el = document.getElementById('three-html-portal')
+        if (el) setHtmlPortal({ current: el })
+    }, [])
 
     useImperativeHandle(ref, () => ({ screen: screenRef }))
 
@@ -37,21 +44,23 @@ const LaptopModel = forwardRef(function LaptopModel({ groupRef, ...props }, ref)
 
                         {/*
                           Drei Html — ContactForm laptop ekranına gömülü.
+                          • portal: page.js'teki #three-html-portal div'ine monte edilir (z:100)
                           • transform: 3D sahneyle birlikte dönüp ölçeklenir
-                          • scale=0.001 iken ekranda görünmez, scale=1.8 olunca belirir
-                          • distanceFactor=0.35 ile form ekran boyutuna uydurulmuş
-                          • pointer-events:auto → tıklanabilir input/butonlar
+                          • LaptopScreenContent içindeki <a> tag'ları pointer-events:auto
                         */}
-                        <Html
-                            transform
-                            distanceFactor={2.5}
-                            position={[0, 0, 0.08]}
-                            rotation={[-Math.PI / 2, 0, 0]}
-                            style={{ pointerEvents: 'auto', userSelect: 'none' }}
-                            zIndexRange={[1, 2]}
-                        >
-                            <LaptopScreenContent />
-                        </Html>
+                        {htmlPortal && (
+                            <Html
+                                portal={htmlPortal}
+                                transform
+                                distanceFactor={2.5}
+                                position={[0, 0, 0]}
+                                rotation={[-Math.PI / 2, 0, 0]}
+                                style={{ pointerEvents: 'none', userSelect: 'none' }}
+                                zIndexRange={[100, 50]}
+                            >
+                                <LaptopScreenContent />
+                            </Html>
+                        )}
                     </group>
                     <mesh geometry={nodes.Object_17.geometry} material={materials.Metal_1} position={[-3.381, 0.111, 0.016]} scale={[1.035, 0.68, 1]} />
                     <mesh geometry={nodes.Object_25.geometry} material={materials.Logo_Text} position={[-3.042, 0.158, 0]} rotation={[Math.PI / 2, 0, 0]} scale={[0.057, 0.057, 0.037]} />

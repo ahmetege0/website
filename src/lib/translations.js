@@ -143,7 +143,7 @@ export const translations = {
 
         hero: {
             greeting: "Merhaba, ben",
-            tagline: "Ölçeklenebilir yazılımlar geliştiriyorum.",
+            tagline: "Ölçeklenebilir yazılımlar\ngeliştiriyorum.",
             description:
                 "SERG, Yeditepe Üniversitesi bünyesinde Yazılım Mühendisi ve Lisans Araştırma Asistanıyım. Java Spring Boot, Python ve mikroservis mimarilerinde backend sistemlerine odaklanıyorum.",
             cta: "Projelerimi Gör",

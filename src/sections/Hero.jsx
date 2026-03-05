@@ -53,8 +53,8 @@ export default function Hero() {
 
                 <motion.h2
                     variants={itemVariants}
-                    className="text-3xl md:text-5xl font-black tracking-tight leading-none mb-8"
-                    style={{ color: "var(--text-muted)" }}
+                    className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-8"
+                    style={{ color: "var(--text-muted)", whiteSpace: "pre-line" }}
                 >
                     {t.tagline}
                 </motion.h2>

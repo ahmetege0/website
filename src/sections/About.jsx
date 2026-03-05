@@ -123,13 +123,21 @@ export default function About() {
                         </div>
                     </motion.div>
 
-                    {/* Sağ: Bio + Skills */}
+                    {/* Sağ: Bio + Skills — cam/blur arka plan ile 3D model üzerinde okunabilir */}
                     <motion.div
                         variants={fadeUp}
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-50px" }}
                         transition={{ delay: 0.15 }}
+                        style={{
+                            background: "rgba(var(--bg-rgb, 10,15,28), 0.72)",
+                            backdropFilter: "blur(16px)",
+                            WebkitBackdropFilter: "blur(16px)",
+                            border: "1px solid rgba(255,255,255,0.07)",
+                            borderRadius: "1rem",
+                            padding: "2rem",
+                        }}
                     >
                         <div className="space-y-4 mb-10">
                             {t.bio.map((paragraph, i) => (

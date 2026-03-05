@@ -23,13 +23,15 @@ export const CHIPSET_ASSEMBLED = { px: 0, py: 0, pz: 0.017, rx: 0, ry: 0, rz: 0 
 export const PLATE_ASSEMBLED = { px: 0, py: 0, pz: 0.587, rx: 0, ry: 0, rz: 0 }
 
 // Scatter offset'leri (local space, assembled'a eklenir)
-const CPU_SCATTER = { px: 3.5, py: 6, pz: 1.5, rz: 0.9 }
-const RAM_SCATTER = { px: -4, py: 5, pz: -2, rx: 0.6 }
-const M2_SCATTER = { px: 2.5, py: -4, pz: 2.5, ry: 1.4 }
-const BRACKET_SCATTER = { px: -2, py: 4, pz: 1, rx: 1.2 }
-const COVER_SCATTER = { px: 2, py: 5, pz: -3, rx: 0.4 }
-const CHIPSET_SCATTER = { px: -3, py: -2, pz: 2, rx: 0.7 }
-const PLATE_SCATTER = { px: 4, py: -1, pz: 4, rz: 0.8 }
+// Yatay (X) ağırlıklı dağılım — sola/sağa yayılıyor, yukarı/aşağı az
+// Scatter başlangıç ofsetleri: tamamen XY düzleminde (pz: 0)
+const CPU_SCATTER = { px: 5, py: 4, pz: 0, rz: 1.1 }
+const RAM_SCATTER = { px: -6, py: 3, pz: 0, rx: 0.8 }
+const M2_SCATTER = { px: 6, py: -3.5, pz: 0, ry: 1.4 }
+const BRACKET_SCATTER = { px: -5, py: -3, pz: 0, rx: 1.3 }
+const COVER_SCATTER = { px: -7, py: 2, pz: 0, rx: 0.5 }
+const CHIPSET_SCATTER = { px: -6, py: 2, pz: 0, rx: 0.9 }
+const PLATE_SCATTER = { px: 3, py: -3.5, pz: 0, rz: 1.0 }
 
 const MotherboardModel = forwardRef(function MotherboardModel({ groupRef, ...props }, ref) {
     const { nodes, materials } = useGLTF('/asus_motherboard.glb')
@@ -164,8 +166,6 @@ const MotherboardModel = forwardRef(function MotherboardModel({ groupRef, ...pro
                     <mesh geometry={nodes.pCube398_VideoPortBlackM_0.geometry} material={materials.VideoPortBlackM} />
                     <mesh geometry={nodes.pCube398_USBMetalM_0.geometry} material={materials.USBMetalM} />
                 </group>
-
-                {/* Eklenen yeni hareketli parçalar */}
                 <group ref={bracketRef}
                     position={[BRACKET_ASSEMBLED.px + BRACKET_SCATTER.px, BRACKET_ASSEMBLED.py + BRACKET_SCATTER.py, BRACKET_ASSEMBLED.pz + BRACKET_SCATTER.pz]}
                     rotation={[BRACKET_SCATTER.rx, 0, 0]}>

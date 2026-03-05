@@ -14,6 +14,12 @@ import SceneWrapper from "@/components/3d/SceneWrapper";
 export default function HomePage() {
   return (
     <>
+      {/* Drei Html portal — z-index:100, pointer-events:none. İçindeki linkler auto olarak override edebilir */}
+      <div
+        id="three-html-portal"
+        style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 100, pointerEvents: 'none', visibility: 'hidden' }}
+      />
+
       {/* 3D Canvas — fixed, z-index: -1, tüm sayfanın arkasında */}
       <SceneWrapper />
 
