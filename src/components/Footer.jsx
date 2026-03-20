@@ -9,7 +9,7 @@ export default function Footer() {
     const t = translations[lang].footer;
 
     return (
-        <footer className="py-8 mt-16 border-t" style={{ borderColor: "var(--border)" }}>
+        <footer className="py-8 mt-0 border-t" style={{ borderColor: "var(--border)", background: "#252525", position: "relative", zIndex: 200 }}>
             <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                     <span
