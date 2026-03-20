@@ -43,6 +43,7 @@ function SceneContent() {
     const p2 = useRef(0)
     const p3 = useRef(0)
     const p4 = useRef(0)
+    const p5 = useRef(0) // form section yaklaşıyor mu?
     const camStart = useRef({ x: 0, y: 0, z: 10 })
     const lookAtTarget = useRef({ x: 2.5, y: 0, z: 0 })
     const portalRef = useRef(null)
@@ -74,8 +75,20 @@ function SceneContent() {
         }
         if (contactSection) {
             ScrollTrigger.create({
-                trigger: contactSection, start: 'top 90%', end: 'center center', scrub: 1.5,
+                trigger: contactSection, start: 'top 90%', end: '35% center', scrub: 1.5,
                 onUpdate: (self) => { p4.current = self.progress },
+            })
+        }
+
+        // Form section viewport'a girerken ikonları gizle
+        const formSection = document.querySelector('#contact-form-section')
+        if (formSection) {
+            ScrollTrigger.create({
+                trigger: formSection,
+                start: 'top bottom',   // form alt viewport'a girince başla
+                end: 'top 60%',        // form üstü viewport %60'a gelince bitsin
+                scrub: true,
+                onUpdate: (self) => { p5.current = self.progress },
             })
         }
 
@@ -195,9 +208,10 @@ function SceneContent() {
             lg.rotation.y = lerp(lg.rotation.y, targetRotY, 0.04)
         }
 
-        // ── HTML portal: sadece Contact bölümünde görünsün ───────────────────
+        // ── HTML portal: Contact zoom'da görünsün, form yaklaşınca gizle ──────
         if (portalRef.current) {
-            portalRef.current.style.visibility = v4 > 0.05 ? 'visible' : 'hidden'
+            const showPortal = v4 > 0.05 && p5.current < 0.15
+            portalRef.current.style.visibility = showPortal ? 'visible' : 'hidden'
         }
 
         // ── FAZ 4: Kamera zoom — contact'ta laptop ekranını çerçeveler ────────

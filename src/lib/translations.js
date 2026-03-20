@@ -125,6 +125,19 @@ export const translations = {
                 { label: "Email", value: "aege0601@gmail.com", description: "Direct message" },
                 { label: "Phone", value: "+90 552 705 49 64", description: "Call or WhatsApp" },
             ],
+            form: {
+                subject: "Subject",
+                subjectPlaceholder: "What is this about?",
+                email: "Your Email",
+                emailPlaceholder: "your@email.com",
+                message: "Message",
+                messagePlaceholder: "Your message...",
+                send: "Send Message",
+                sending: "Sending...",
+                successTitle: "Message received!",
+                successSub: "I'll get back to you as soon as possible.",
+                errorText: "Something went wrong. Please try again.",
+            },
         },
 
         footer: {
@@ -249,6 +262,19 @@ export const translations = {
                 { label: "Email", value: "aege0601@gmail.com", description: "Doğrudan mesaj" },
                 { label: "Telefon", value: "+90 552 705 49 64", description: "Ara veya WhatsApp" },
             ],
+            form: {
+                subject: "Konu",
+                subjectPlaceholder: "Konu nedir?",
+                email: "Mail Adresi",
+                emailPlaceholder: "mail@adresin.com",
+                message: "Mesaj",
+                messagePlaceholder: "Mesajınız...",
+                send: "Gönder",
+                sending: "Gönderiliyor...",
+                successTitle: "Mesajın alındı!",
+                successSub: "En kısa sürede yanıt vereceğim.",
+                errorText: "Bir şeyler ters gitti. Lütfen tekrar dene.",
+            },
         },
 
         footer: {
