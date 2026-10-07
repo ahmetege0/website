@@ -12,6 +12,7 @@
 
 import React, { useRef, forwardRef, useImperativeHandle } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { trackGLTFProgress } from './loadProgress'
 
 // Assembled (hedef) pozisyonlar — Scene.jsx bu sabitlerle lerp yapacak
 export const CPU_ASSEMBLED = { px: 0.246, py: 1.89, pz: -7.892, rx: Math.PI / 2, ry: 0, rz: 0 }
@@ -22,19 +23,19 @@ export const COVER_ASSEMBLED = { px: 0, py: 0, pz: 0.319, rx: 0, ry: 0, rz: 0 }
 export const CHIPSET_ASSEMBLED = { px: 0, py: 0, pz: 0.017, rx: 0, ry: 0, rz: 0 }
 export const PLATE_ASSEMBLED = { px: 0, py: 0, pz: 0.587, rx: 0, ry: 0, rz: 0 }
 
-// Scatter offset'leri (local space, assembled'a eklenir)
-// Yatay (X) ağırlıklı dağılım — sola/sağa yayılıyor, yukarı/aşağı az
-// Scatter başlangıç ofsetleri: tamamen XY düzleminde (pz: 0)
-const CPU_SCATTER = { px: 5, py: 4, pz: 0, rz: 1.1 }
-const RAM_SCATTER = { px: -6, py: 3, pz: 0, rx: 0.8 }
-const M2_SCATTER = { px: 6, py: -3.5, pz: 0, ry: 1.4 }
-const BRACKET_SCATTER = { px: -5, py: -3, pz: 0, rx: 1.3 }
-const COVER_SCATTER = { px: -7, py: 2, pz: 0, rx: 0.5 }
-const CHIPSET_SCATTER = { px: -6, py: 2, pz: 0, rx: 0.9 }
-const PLATE_SCATTER = { px: 3, py: -3.5, pz: 0, rz: 1.0 }
+// Scatter offset'leri (local space, assembled'a eklenir) — TEK KAYNAK.
+// JSX başlangıç pozisyonu ve Scene.jsx'teki scroll lerp'i bunları kullanır.
+// Pozisyonlar tamamen XY düzleminde (pz: 0); rx/ry/rz mutlak rotasyon.
+export const CPU_SCATTER = { px: 5, py: 4, pz: 0, rz: 1.1 }
+export const RAM_SCATTER = { px: -1, py: -2, pz: 0, rx: 0.8 }
+export const M2_SCATTER = { px: 6, py: -3.5, pz: 0, ry: 1.4 }
+export const BRACKET_SCATTER = { px: -5, py: -3, pz: 0, rx: 1.3 }
+export const COVER_SCATTER = { px: 5, py: 1, pz: 0, rx: 0.5 }
+export const CHIPSET_SCATTER = { px: -6, py: 2, pz: 0, rx: 0.9 }
+export const PLATE_SCATTER = { px: 4, py: -2, pz: 0, rz: 1.0 }
 
 const MotherboardModel = forwardRef(function MotherboardModel({ groupRef, ...props }, ref) {
-    const { nodes, materials } = useGLTF('/asus_motherboard.glb')
+    const { nodes, materials } = useGLTF('/asus_motherboard.glb', true, true, trackGLTFProgress)
 
     const cpuRef = useRef()
     const ramRef = useRef()
@@ -214,5 +215,5 @@ const MotherboardModel = forwardRef(function MotherboardModel({ groupRef, ...pro
 })
 
 MotherboardModel.displayName = 'MotherboardModel'
-useGLTF.preload('/asus_motherboard.glb')
+useGLTF.preload('/asus_motherboard.glb', true, true, trackGLTFProgress)
 export default MotherboardModel

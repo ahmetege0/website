@@ -10,24 +10,30 @@
 
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 import { Canvas, useThree, useFrame } from '@react-three/fiber'
 import { Environment, PerspectiveCamera } from '@react-three/drei'
-import MotherboardModel, { CPU_ASSEMBLED, RAM_ASSEMBLED, M2_ASSEMBLED, BRACKET_ASSEMBLED, COVER_ASSEMBLED, CHIPSET_ASSEMBLED, PLATE_ASSEMBLED } from './MotherboardModel'
+import MotherboardModel, {
+    CPU_ASSEMBLED, RAM_ASSEMBLED, M2_ASSEMBLED, BRACKET_ASSEMBLED, COVER_ASSEMBLED, CHIPSET_ASSEMBLED, PLATE_ASSEMBLED,
+    CPU_SCATTER as CPU_OFFSET, RAM_SCATTER as RAM_OFFSET, M2_SCATTER as M2_OFFSET, BRACKET_SCATTER as BRACKET_OFFSET,
+    COVER_SCATTER as COVER_OFFSET, CHIPSET_SCATTER as CHIPSET_OFFSET, PLATE_SCATTER as PLATE_OFFSET,
+} from './MotherboardModel'
 import LaptopModel from './LaptopModel'
+import { markSceneReady } from './loadProgress'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { gsap } from 'gsap'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// ─── Scatter başlangıç pozisyonları (tamamen XY, pz=assembled) ───────────────
-const CPU_SCATTER = { px: CPU_ASSEMBLED.px + 5, py: CPU_ASSEMBLED.py + 4, pz: CPU_ASSEMBLED.pz, rz: 1.1 }
-const RAM_SCATTER = { px: RAM_ASSEMBLED.px - 1, py: RAM_ASSEMBLED.py - 2, pz: RAM_ASSEMBLED.pz, rx: 0.8 }
-const M2_SCATTER = { px: M2_ASSEMBLED.px + 6, py: M2_ASSEMBLED.py - 3.5, pz: M2_ASSEMBLED.pz, ry: 1.4 }
-const BRACKET_SCATTER = { px: BRACKET_ASSEMBLED.px - 5, py: BRACKET_ASSEMBLED.py - 3, pz: BRACKET_ASSEMBLED.pz, rx: 1.3 }
-const COVER_SCATTER = { px: COVER_ASSEMBLED.px + 5, py: COVER_ASSEMBLED.py + 1, pz: COVER_ASSEMBLED.pz, rx: 0.5 }
-const CHIPSET_SCATTER = { px: CHIPSET_ASSEMBLED.px - 6, py: CHIPSET_ASSEMBLED.py + 2, pz: CHIPSET_ASSEMBLED.pz, rx: 0.9 }
-const PLATE_SCATTER = { px: PLATE_ASSEMBLED.px + 4, py: PLATE_ASSEMBLED.py - 2, pz: PLATE_ASSEMBLED.pz, rz: 1.0 }
+// ─── Scatter başlangıç pozisyonları (mutlak) — offset'ler MotherboardModel'de ─
+const scatterOf = (asm, off) => ({ ...off, px: asm.px + off.px, py: asm.py + off.py, pz: asm.pz + off.pz })
+const CPU_SCATTER = scatterOf(CPU_ASSEMBLED, CPU_OFFSET)
+const RAM_SCATTER = scatterOf(RAM_ASSEMBLED, RAM_OFFSET)
+const M2_SCATTER = scatterOf(M2_ASSEMBLED, M2_OFFSET)
+const BRACKET_SCATTER = scatterOf(BRACKET_ASSEMBLED, BRACKET_OFFSET)
+const COVER_SCATTER = scatterOf(COVER_ASSEMBLED, COVER_OFFSET)
+const CHIPSET_SCATTER = scatterOf(CHIPSET_ASSEMBLED, CHIPSET_OFFSET)
+const PLATE_SCATTER = scatterOf(PLATE_ASSEMBLED, PLATE_OFFSET)
 
 const lerp = (a, b, t) => a + (b - a) * t
 
@@ -47,6 +53,10 @@ function SceneContent() {
     const camStart = useRef({ x: 0, y: 0, z: 10 })
     const lookAtTarget = useRef({ x: 2.5, y: 0, z: 0 })
     const portalRef = useRef(null)
+
+    // Bu effect ancak tüm çocuklar (GLB'ler + Environment HDR) Suspense'ten
+    // çıkıp commit edilince çalışır → loading bar'a "sahne hazır" sinyali
+    useEffect(() => { markSceneReady() }, [])
 
     useEffect(() => {
         camStart.current = { x: camera.position.x, y: camera.position.y, z: camera.position.z }
@@ -246,7 +256,8 @@ function SceneContent() {
             <pointLight position={[0, 4, 2]} intensity={1.2} color="#818cf8" />
             <pointLight position={[3, -2, 3]} intensity={0.5} color="#06b6d4" />
 
-            <Environment preset="city" />
+            {/* "city" preset HDR'i public/hdri'den — harici CDN 9-40 sn sürüyordu */}
+            <Environment files="/hdri/potsdamer_platz_1k.hdr" />
 
             {/* Anakart: Hero'da sağ tarafta — yazıların dışında */}
             <MotherboardModel
@@ -270,18 +281,8 @@ function SceneContent() {
 }
 
 // ─── Canvas ───────────────────────────────────────────────────────────────────
+// Mobil kontrolü SceneWrapper'da (useIsDesktop) — bu modül mobilde hiç yüklenmez
 export default function Scene() {
-    const [isMobile, setIsMobile] = useState(false)
-
-    useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 1024)
-        checkMobile()
-        window.addEventListener('resize', checkMobile)
-        return () => window.removeEventListener('resize', checkMobile)
-    }, [])
-
-    if (isMobile) return null
-
     return (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, pointerEvents: 'none' }}>
             <Canvas shadows gl={{ antialias: true, alpha: true }} style={{ background: 'transparent' }} dpr={[1, 1.5]}>

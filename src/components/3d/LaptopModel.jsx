@@ -6,10 +6,11 @@
 
 import React, { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { useGLTF, Html } from '@react-three/drei'
+import { trackGLTFProgress } from './loadProgress'
 import LaptopScreenContent from './LaptopScreenContent'
 
 const LaptopModel = forwardRef(function LaptopModel({ groupRef, ...props }, ref) {
-    const { nodes, materials } = useGLTF('/asus_laptop.glb')
+    const { nodes, materials } = useGLTF('/asus_laptop.glb', true, true, trackGLTFProgress)
     const screenRef = useRef()
 
     // Drei Html'i page.js'teki portal div'ine monte et (z-index:100 stacking context'inde)
@@ -135,5 +136,5 @@ const LaptopModel = forwardRef(function LaptopModel({ groupRef, ...props }, ref)
 })
 
 LaptopModel.displayName = 'LaptopModel'
-useGLTF.preload('/asus_laptop.glb')
+useGLTF.preload('/asus_laptop.glb', true, true, trackGLTFProgress)
 export default LaptopModel

@@ -10,7 +10,6 @@ import Experience from "@/sections/Experience";
 import Projects from "@/sections/Projects";
 import Contact from "@/sections/Contact";
 import SceneWrapper from "@/components/3d/SceneWrapper";
-import LoadingBar from "@/components/LoadingBar";
 
 export default function HomePage() {
   return (
@@ -21,10 +20,7 @@ export default function HomePage() {
         style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', zIndex: 100, pointerEvents: 'none', visibility: 'hidden' }}
       />
 
-      {/* Loading bar — GLB dosyaları yüklenirken gösterilir, mobilde aktif olmaz */}
-      <LoadingBar />
-
-      {/* 3D Canvas — fixed, z-index: -1, tüm sayfanın arkasında */}
+      {/* 3D Canvas (+ loading bar) — fixed, z-index: -1, tüm sayfanın arkasında. Sadece masaüstü */}
       <SceneWrapper />
 
       {/* HTML Overlay — scrollable foreground */}

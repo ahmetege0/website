@@ -4,6 +4,89 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/LanguageContext";
 import { translations } from "@/lib/translations";
 
+/*
+  Entry şekilleri (translations.js → experience.entries):
+    • Tek rol:   { company, href, period, title, description, tech }
+    • Çok rol:   { company, href, roles: [{ period, title, description, tech }, ...] }
+                 roles en yeniden eskiye sıralı; üstteki tarih aralığı otomatik hesaplanır.
+*/
+
+// "May 2025 — Present" + "Sep 2024 — Oct 2024" → "Sep 2024 — Present"
+const PERIOD_SEP = " — ";
+const overallPeriod = (roles) => {
+    const end = roles[0].period.split(PERIOD_SEP)[1];
+    const start = roles[roles.length - 1].period.split(PERIOD_SEP)[0];
+    return end ? `${start}${PERIOD_SEP}${end}` : start;
+};
+
+function PeriodBadge({ children }) {
+    return (
+        <span
+            className="font-mono text-xs tracking-widest uppercase"
+            style={{
+                color: "var(--accent)",
+                opacity: 0.7,
+                letterSpacing: "0.1em",
+            }}
+        >
+            {children}
+        </span>
+    );
+}
+
+function TechBadges({ tech }) {
+    return (
+        <div className="flex flex-wrap gap-2">
+            {tech.map((item) => (
+                <span
+                    key={item}
+                    className="font-mono text-xs px-2.5 py-0.5 rounded-md"
+                    style={{
+                        color: "var(--accent)",
+                        background: "var(--tech-badge-bg)",
+                        border: "1px solid var(--tech-badge-border)",
+                        letterSpacing: "0.02em",
+                    }}
+                >
+                    {item}
+                </span>
+            ))}
+        </div>
+    );
+}
+
+function LinkHeading({ children }) {
+    return (
+        <h3
+            className="font-bold text-base leading-snug"
+            style={{ color: "var(--text)", marginBottom: "4px" }}
+        >
+            <span className="group-hover:text-[var(--accent)] transition-colors duration-200 inline-flex items-center gap-1.5">
+                {children}
+                <svg
+                    className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    style={{ color: "var(--accent)" }}
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+            </span>
+        </h3>
+    );
+}
+
+function Description({ children, className = "mt-3 mb-4" }) {
+    return (
+        <p
+            className={`text-sm leading-relaxed ${className}`}
+            style={{ color: "var(--text-muted)", opacity: 0.85 }}
+        >
+            {children}
+        </p>
+    );
+}
+
 export default function Experience() {
     const { lang } = useLanguage();
     const t = translations[lang].experience;
@@ -43,9 +126,11 @@ export default function Experience() {
                             />
 
                             <div className="flex flex-col gap-3 pl-8">
-                                {t.entries.map((exp, index) => (
+                                {t.entries.map((exp, index) => {
+                                    const roles = exp.roles ?? [exp];
+                                    return (
                                     <motion.a
-                                        key={exp.company}
+                                        key={`${exp.company}-${index}`}
                                         href={exp.href}
                                         target="_blank"
                                         rel="noopener noreferrer"
@@ -110,73 +195,80 @@ export default function Experience() {
                                             </div>
                                         </div>
 
-                                        {/* Period badge */}
-                                        <div className="mb-3">
-                                            <span
-                                                className="font-mono text-xs tracking-widest uppercase"
-                                                style={{
-                                                    color: "var(--accent)",
-                                                    opacity: 0.7,
-                                                    letterSpacing: "0.1em",
-                                                }}
-                                            >
-                                                {exp.period}
-                                            </span>
-                                        </div>
+                                        {roles.length === 1 ? (
+                                            <>
+                                                {/* Period badge */}
+                                                <div className="mb-3">
+                                                    <PeriodBadge>{exp.period}</PeriodBadge>
+                                                </div>
 
-                                        {/* Title + company */}
-                                        <div className="mb-1">
-                                            <h3
-                                                className="font-bold text-base leading-snug"
-                                                style={{ color: "var(--text)", marginBottom: "4px" }}
-                                            >
-                                                <span className="group-hover:text-[var(--accent)] transition-colors duration-200 inline-flex items-center gap-1.5">
-                                                    {exp.title}
-                                                    <svg
-                                                        className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 flex-shrink-0"
-                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                        style={{ color: "var(--accent)" }}
+                                                {/* Title + company */}
+                                                <div className="mb-1">
+                                                    <LinkHeading>{exp.title}</LinkHeading>
+                                                    <p
+                                                        className="text-sm font-medium"
+                                                        style={{ color: "var(--text-muted)" }}
                                                     >
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                                    </svg>
-                                                </span>
-                                            </h3>
-                                            <p
-                                                className="text-sm font-medium"
-                                                style={{ color: "var(--text-muted)" }}
-                                            >
-                                                {exp.company}
-                                            </p>
-                                        </div>
+                                                        {exp.company}
+                                                    </p>
+                                                </div>
 
-                                        {/* Description */}
-                                        <p
-                                            className="text-sm leading-relaxed mt-3 mb-4"
-                                            style={{ color: "var(--text-muted)", opacity: 0.85 }}
-                                        >
-                                            {exp.description}
-                                        </p>
+                                                <Description>{exp.description}</Description>
+                                                <TechBadges tech={exp.tech} />
+                                            </>
+                                        ) : (
+                                            <>
+                                                {/* Şirketteki toplam süre */}
+                                                <div className="mb-3">
+                                                    <PeriodBadge>{overallPeriod(roles)}</PeriodBadge>
+                                                </div>
 
-                                        {/* Tech badges */}
-                                        <div className="flex flex-wrap gap-2">
-                                            {exp.tech.map((tech) => (
-                                                <span
-                                                    key={tech}
-                                                    className="font-mono text-xs px-2.5 py-0.5 rounded-md"
-                                                    style={{
-                                                        color: "var(--accent)",
-                                                        background: "var(--tech-badge-bg)",
-                                                        border: "1px solid var(--tech-badge-border)",
-                                                        letterSpacing: "0.02em",
-                                                    }}
-                                                >
-                                                    {tech}
-                                                </span>
-                                            ))}
-                                        </div>
+                                                <LinkHeading>{exp.company}</LinkHeading>
+
+                                                {/* Pozisyonlar — en yeniden eskiye, iç içe mini timeline */}
+                                                <div className="relative mt-4 flex flex-col gap-6 pl-5">
+                                                    <div
+                                                        className="absolute left-0"
+                                                        style={{
+                                                            top: "8px",
+                                                            bottom: "8px",
+                                                            width: "1px",
+                                                            background: "var(--border-accent)",
+                                                        }}
+                                                    />
+                                                    {roles.map((role) => (
+                                                        <div key={`${role.title}-${role.period}`} className="relative">
+                                                            <div
+                                                                className="absolute"
+                                                                style={{
+                                                                    left: "-23px",
+                                                                    top: "6px",
+                                                                    width: "7px",
+                                                                    height: "7px",
+                                                                    borderRadius: "50%",
+                                                                    background: "var(--accent)",
+                                                                    opacity: 0.8,
+                                                                }}
+                                                            />
+                                                            <p
+                                                                className="text-sm font-semibold leading-snug"
+                                                                style={{ color: "var(--text)" }}
+                                                            >
+                                                                {role.title}
+                                                            </p>
+                                                            <p className="mt-1">
+                                                                <PeriodBadge>{role.period}</PeriodBadge>
+                                                            </p>
+                                                            <Description className="mt-2 mb-3">{role.description}</Description>
+                                                            <TechBadges tech={role.tech} />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </>
+                                        )}
                                     </motion.a>
-                                ))}
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>

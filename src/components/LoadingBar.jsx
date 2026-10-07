@@ -2,29 +2,35 @@
 /*
   LoadingBar.jsx — 3D model alanı üstünde duran loading kartı.
   Sadece progress bar + yüzde gösterir. Tema değişkenlerini kullanır.
-  Mobilde Scene render edilmez → active olmaz → hiç göstermez.
+  SceneWrapper tarafından sadece masaüstünde render edilir.
+
+  İlerleme: GLB'lerin indirilen byte'ı (%0–95). %100 ancak sahne gerçekten
+  ekrana basıldığında (GLB + HDR ortamı hazır → markSceneReady) gösterilir.
+  Değer asla geri gitmez. (drei useProgress dosya sayısına baktığı için zıplıyordu.)
 */
 
-import { useProgress } from '@react-three/drei'
 import { useEffect, useState } from 'react'
+import { useSceneLoad } from '@/components/3d/loadProgress'
 
 export default function LoadingBar() {
-    const { active, progress } = useProgress()
-    const [started, setStarted] = useState(false)
+    const { fraction, ready: finished } = useSceneLoad()
+    const target = finished ? 100 : Math.min(fraction * 95, 95)
+
+    // Mount anında sahne zaten hazırsa (client-side geri dönüş) hiç gösterme
+    const [needed] = useState(!finished)
+    const [progress, setProgress] = useState(0)
     const [visible, setVisible] = useState(true)
 
+    // Monoton: sadece ileri gider (render sırasında türetilmiş state güncellemesi)
+    if (target > progress) setProgress(target)
     useEffect(() => {
-        if (active) setStarted(true)
-    }, [active])
-
-    useEffect(() => {
-        if (started && !active && progress >= 100) {
+        if (finished) {
             const t = setTimeout(() => setVisible(false), 500)
             return () => clearTimeout(t)
         }
-    }, [started, active, progress])
+    }, [finished])
 
-    if (!started) return null
+    if (!needed) return null
 
     return (
         <div
