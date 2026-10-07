@@ -137,6 +137,7 @@ export const translations = {
                 successTitle: "Message received!",
                 successSub: "I'll get back to you as soon as possible.",
                 errorText: "Something went wrong. Please try again.",
+                divider: "or send a message",
             },
         },
 
@@ -274,6 +275,7 @@ export const translations = {
                 successTitle: "Mesajın alındı!",
                 successSub: "En kısa sürede yanıt vereceğim.",
                 errorText: "Bir şeyler ters gitti. Lütfen tekrar dene.",
+                divider: "ya da mesaj bırak",
             },
         },
 
