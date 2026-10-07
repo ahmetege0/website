@@ -1,5 +1,14 @@
 import { Resend } from 'resend';
 
+// Kullanıcı girdisini mail HTML'ine güvenli şekilde gömmek için
+const escapeHtml = (str) =>
+    String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
 export async function POST(request) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     try {
@@ -22,17 +31,17 @@ export async function POST(request) {
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
                         <tr>
                             <td style="color: #8892b0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); width: 100px;">Gönderen</td>
-                            <td style="color: #e2e8f0; font-size: 0.9rem; padding: 8px 0 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">${email}</td>
+                            <td style="color: #e2e8f0; font-size: 0.9rem; padding: 8px 0 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">${escapeHtml(email)}</td>
                         </tr>
                         <tr>
                             <td style="color: #8892b0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">Konu</td>
-                            <td style="color: #e2e8f0; font-size: 0.9rem; padding: 8px 0 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">${subject}</td>
+                            <td style="color: #e2e8f0; font-size: 0.9rem; padding: 8px 0 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">${escapeHtml(subject)}</td>
                         </tr>
                     </table>
                     
                     <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(100, 255, 218, 0.1); border-radius: 8px; padding: 16px;">
                         <p style="color: #8892b0; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 10px 0;">Mesaj</p>
-                        <p style="color: #e2e8f0; font-size: 0.92rem; line-height: 1.65; margin: 0; white-space: pre-wrap;">${message.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+                        <p style="color: #e2e8f0; font-size: 0.92rem; line-height: 1.65; margin: 0; white-space: pre-wrap;">${escapeHtml(message)}</p>
                     </div>
                 </div>
             `,
