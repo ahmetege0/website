@@ -85,7 +85,10 @@ export default function ProjectModal({ project, onClose, t }) {
         return match ? match[1] : null;
     }
 
-    const videoId = getYoutubeId(project.videoUrl);
+    // videos: [{ url, title }] — birden fazla video desteklenir
+    const videos = (project.videos ?? [])
+        .map((v) => ({ ...v, id: getYoutubeId(v.url) }))
+        .filter((v) => v.id);
 
     return (
         /*
@@ -187,26 +190,28 @@ export default function ProjectModal({ project, onClose, t }) {
                             : `✓ ${t?.completed || "Completed"}`}
                     </span>
 
-                    {/* YouTube video embed */}
-                    {videoId && (
-                        <div className="mb-6 rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
-                            {/*
-                YouTube iframe embed
-                src: /embed/VIDEO_ID  formatında
-                allowFullScreen: Tam ekran butonu göster
-              */}
-                            <iframe
-                                width="100%"
-                                height="100%"
-                                src={`https://www.youtube.com/embed/${videoId}`}
-                                title={`${project.title} Demo`}
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                className="rounded-lg"
-                            />
+                    {/* YouTube video embed'leri */}
+                    {videos.map((video) => (
+                        <div key={video.id} className="mb-6">
+                            {videos.length > 1 && (
+                                <p className="font-mono text-xs mb-2" style={{ color: "var(--text-muted)" }}>
+                                    {video.title}
+                                </p>
+                            )}
+                            <div className="rounded-lg overflow-hidden" style={{ aspectRatio: "16/9" }}>
+                                <iframe
+                                    width="100%"
+                                    height="100%"
+                                    src={`https://www.youtube.com/embed/${video.id}`}
+                                    title={video.title}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    className="rounded-lg"
+                                />
+                            </div>
                         </div>
-                    )}
+                    ))}
 
                     {/* Ekran görüntüleri galerisi */}
                     {project.images?.length > 0 && (
@@ -289,9 +294,10 @@ export default function ProjectModal({ project, onClose, t }) {
                                 GitHub
                             </a>
                         )}
-                        {project.videoUrl && (
+                        {videos.map((video) => (
                             <a
-                                href={project.videoUrl}
+                                key={video.id}
+                                href={video.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn-outline text-xs py-2 px-4"
@@ -299,9 +305,9 @@ export default function ProjectModal({ project, onClose, t }) {
                                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                                 </svg>
-                                Demo Video
+                                {video.title}
                             </a>
-                        )}
+                        ))}
                         {project.externalUrl && (
                             <a
                                 href={project.externalUrl}

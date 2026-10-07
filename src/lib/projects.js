@@ -18,20 +18,81 @@ export const projects = [
       "Yapay zeka destekli, Microservice ve Katmanlı mimari kullanarak geliştirdiğimiz akıllı otopark yönetim sistemi.",
 
     longDescription:
-      "As a result of approximately a year-long work within SERG, from the **Requirements Gathering** phase to project completion, I actively took part in every step of the journey from inception to a marketable product — contributing to AI chatbot assistant development, **IoT device integration**, backend development with **Java Spring Boot**, database management with **PostgreSQL**, and developing reservation and sensor-based parking process pages in TypeScript for both the Driver and Provider apps.\n\nWorking with a team of 20+ people — comprised of graduates and the brightest students from every year at our university — holds a unique place in my growth, both in terms of interpersonal communication and the experience of collaborating as part of a team.\n\nUnder **ArcMotus**, founded by our team and our advisor **Prof. Dr. Mert Özkaya**, we are building solutions that eliminate the time wasted during parking — at least partially addressing the incredibly difficult traffic problem in major cities like Istanbul. With ParkWiser, our first product, you can identify your destination with our AI assistant, find the nearest parking lots, and make a reservation without ever leaving the chatbot screen! For more details, feel free to watch our demo video or reach me via email!",
+      "As a result of approximately a year-long work within SERG, from the **Requirements Gathering** phase to project completion, I actively took part in every step of the journey from inception to a marketable product — contributing to AI chatbot assistant development, **IoT device integration**, backend development with **Java Spring Boot**, database management with **PostgreSQL**, and developing reservation and sensor-based parking process pages in TypeScript for both the Driver and Provider apps.\n\nWorking with a team of 20+ people — comprised of graduates and the brightest students from every year at our university — holds a unique place in my growth, both in terms of interpersonal communication and the experience of collaborating as part of a team.\n\nUnder **ArcMotus**, founded by our team and our advisor **Prof. Dr. Mert Özkaya**, we built solutions that eliminate the time wasted during parking — at least partially addressing the incredibly difficult traffic problem in major cities like Istanbul. With ParkWiser, our first product, you can identify your destination with our AI assistant, find the nearest parking lots, and make a reservation without ever leaving the chatbot screen! For more details, feel free to watch our demo videos or reach me via email!",
     longDescriptionTr:
-      "SERG bünyesinde yaklaşık 1 yılı bulan bir çalışmanın sonucunda, **Requirements Gathering** adımından projenin tamamlanmasına kadar; AI chatbot assistant geliştirme, **IoT device entegrasyonu**, **Java Spring Boot** ile backend geliştirme, **PostgreSQL** ile database yönetimi ve son olarak da Driver ve Provider uygulamalarımızda TypeScript ile rezervasyon ve sensörlü park süreçlerinin sayfalarını geliştirme ekiplerinde yer alarak projenin başlangıcından, pazarlanabilir bir ürün haline gelişine kadar her adımında aktif rol aldım.\n\nMezunlar ve üniversitemizdeki her dönemden en parlak öğrencilerin toplandığı 20+ kişilik bir ekiple çalışmak, hem ekip içi iletişim becerilerimi hem de bir takımın parçası olarak çalışma deneyimi konusunda benim için benzersiz bir yere sahip.\n\nEkibimiz ve danışman hocamız sayın **Prof. Dr. Mert Özkaya**'nın kurduğu **ArcMotus** bünyesinde, İstanbul gibi büyük şehirlerde yaşanan ve çözümü çok zor olan trafik problemine en azından parklanma sürecinde harcanan zamanı yok eden çözümler geliştiriyoruz. Bunlardan ilki olan ParkWiser ile gitmek istediğiniz yerleri AI asistanımız ile tespit edebilir, en yakın otoparkları bulabilir ve dilediğinize chatbot ekranından çıkmadan rezervasyon yapabilirsiniz! Daha detaylı bilgi için videomuzu izleyebilir ya da bana mail adresim üzerinden ulaşabilirsiniz!",
+      "SERG bünyesinde yaklaşık 1 yılı bulan bir çalışmanın sonucunda, **Requirements Gathering** adımından projenin tamamlanmasına kadar; AI chatbot assistant geliştirme, **IoT device entegrasyonu**, **Java Spring Boot** ile backend geliştirme, **PostgreSQL** ile database yönetimi ve son olarak da Driver ve Provider uygulamalarımızda TypeScript ile rezervasyon ve sensörlü park süreçlerinin sayfalarını geliştirme ekiplerinde yer alarak projenin başlangıcından, pazarlanabilir bir ürün haline gelişine kadar her adımında aktif rol aldım.\n\nMezunlar ve üniversitemizdeki her dönemden en parlak öğrencilerin toplandığı 20+ kişilik bir ekiple çalışmak, hem ekip içi iletişim becerilerimi hem de bir takımın parçası olarak çalışma deneyimi konusunda benim için benzersiz bir yere sahip.\n\nEkibimiz ve danışman hocamız sayın **Prof. Dr. Mert Özkaya**'nın kurduğu **ArcMotus** bünyesinde, İstanbul gibi büyük şehirlerde yaşanan ve çözümü çok zor olan trafik problemine en azından parklanma sürecinde harcanan zamanı yok eden çözümler geliştirdik. Bunlardan ilki olan ParkWiser ile gitmek istediğiniz yerleri AI asistanımız ile tespit edebilir, en yakın otoparkları bulabilir ve dilediğinize chatbot ekranından çıkmadan rezervasyon yapabilirsiniz! Daha detaylı bilgi için videolarımızı izleyebilir ya da bana mail adresim üzerinden ulaşabilirsiniz!",
 
     role: "Jr. Backend & AI Developer",
-    period: "May 2025 – Feb 2026",
+    period: "May 2025 – Aug 2026",
     tech: ["Java", "Spring Boot", "Python", "Microservices", "PostgreSQL", "AI/ML"],
     githubUrl: "https://github.com/ahmetege0",
     liveUrl: null,
-    videoUrl: "https://youtu.be/n9Dwj1nVM-E?si=crIgcT6yLSRUOBN6",
+    videos: [
+      { url: "https://youtu.be/2mIS7PXS50w", title: "ParkWiser Demo" },
+      { url: "https://youtu.be/mnJBTj-wX9Y", title: "ParkTwin — Digital Twin" },
+    ],
     externalUrl: null,
     featured: true,
     status: "Completed",
     coverColor: "#02735E",
+  },
+  {
+    slug: "mock-interview",
+    title: "Mock Interview App",
+    subtitle: "AI-Native Case Study — OBSS",
+
+    shortDescription:
+      "Full-stack mock interview platform that turns a pasted job posting into a role-specific interview via a multi-agent LLM pipeline.",
+    shortDescriptionTr:
+      "Yapıştırılan bir iş ilanından, multi-agent LLM pipeline ile role özel mülakat üreten full-stack mülakat simülasyonu platformu.",
+
+    longDescription:
+      "Built during my **AI-Native Summer Internship at OBSS** as a team case study. The application orchestrates a **multi-agent LLM pipeline via MCP**: paste a job posting, and it generates role-specific interview questions, guides the candidate through a sequential **Q&A flow**, and produces a structured post-interview **evaluation report**.\n\nOn the platform side, I implemented **email/password and Google OAuth authentication** with role-based admin access, plus an **admin dashboard** for interview history, token/cost tracking, profession filtering, and usage statistics.\n\nThe project was developed with AI-Native practices — spec-driven development, ATDD/TDD and Controlled Autonomy — where specs, architecture decisions and AI usage logs acted as quality gates for every AI-assisted output.",
+    longDescriptionTr:
+      "**OBSS'teki AI-Native Yaz Stajım** sırasında ekip olarak geliştirdiğimiz bir vaka çalışması. Uygulama, **MCP üzerinden multi-agent bir LLM pipeline'ı** yönetiyor: bir iş ilanını yapıştırıyorsunuz; sistem role özel mülakat soruları üretiyor, adayı sıralı bir **soru-cevap akışında** yönlendiriyor ve mülakat sonunda yapılandırılmış bir **değerlendirme raporu** hazırlıyor.\n\nPlatform tarafında rol tabanlı admin erişimiyle **e-posta/şifre ve Google OAuth kimlik doğrulamasını**, ayrıca mülakat geçmişi, token/maliyet takibi, meslek filtreleme ve kullanım istatistikleri sunan bir **admin paneli** geliştirdim.\n\nProje AI-Native pratiklerle — spec-driven development, ATDD/TDD ve Kontrollü Otonomi — geliştirildi; spec'ler, mimari kararlar ve AI kullanım kayıtları her AI destekli çıktı için kalite kapısı görevi gördü.",
+
+    images: [
+      "/images/mock_interview/setup.png",
+      "/images/mock_interview/question.png",
+      "/images/mock_interview/complete.png",
+    ],
+
+    role: "AI-Native Summer Intern",
+    period: "Jul 2026 – Aug 2026",
+    tech: ["LLM APIs", "Multi-Agent", "MCP", "Google OAuth", "Full Stack", "ATDD/TDD"],
+    githubUrl: null,
+    liveUrl: null,
+    videos: [],
+    externalUrl: null,
+    featured: true,
+    status: "Completed",
+    coverColor: "#3E4C8C",
+  },
+  {
+    slug: "stabiloreach",
+    title: "Stabiloreach",
+    subtitle: "Fall Risk Assessment SaaS for Physiotherapists",
+
+    shortDescription:
+      "Computer vision module that automates the clinical Forward Reach Test to assess fall risk in elderly patients, inside a SaaS platform for clinicians.",
+    shortDescriptionTr:
+      "Yaşlı hastalarda düşme riskini değerlendiren klinik Forward Reach Test'i otomatikleştiren bilgisayarlı görü modülü ve fizyoterapistlere yönelik SaaS platformu.",
+
+    longDescription:
+      "Stabiloreach helps physiotherapists assess **fall risk in elderly patients**. I developed the **Computer Vision** module in **Python** and **OpenCV** that automates the clinical **Forward Reach Test**: it detects body landmarks from video frames and computes reach distance using a height-based **pixel-to-centimeter calibration**.\n\nTo make the measurements clinically reliable, I calibrated the model against **physiotherapist-measured ground-truth videos**. I also contributed to the **SaaS web platform** built with a **Python FastAPI** backend and a **React** frontend, supporting clinician dashboards, video upload analysis, and remote consultation flows.",
+    longDescriptionTr:
+      "Stabiloreach, fizyoterapistlerin **yaşlı hastalarda düşme riskini** değerlendirmesine yardımcı oluyor. Klinik **Forward Reach Test**'i otomatikleştiren **Bilgisayarlı Görü** modülünü **Python** ve **OpenCV** ile geliştirdim: video karelerinden vücut landmark'larını tespit ediyor ve boy tabanlı **piksel-santimetre kalibrasyonu** ile uzanma mesafesini hesaplıyor.\n\nÖlçümlerin klinik olarak güvenilir olması için modeli **fizyoterapistlerin ölçtüğü referans (ground-truth) videolarla** kalibre ettim. Ayrıca **Python FastAPI** backend ve **React** frontend ile geliştirilen; klinisyen panelleri, video yükleme analizi ve uzaktan konsültasyon akışları sunan **SaaS web platformuna** katkıda bulundum.",
+
+    role: "AI & Backend Developer",
+    period: "Apr 2026 – Jul 2026",
+    tech: ["Python", "OpenCV", "Computer Vision", "FastAPI", "React", "SaaS"],
+    githubUrl: null,
+    liveUrl: null,
+    videos: [],
+    externalUrl: null,
+    featured: true,
+    status: "Completed",
+    coverColor: "#1F7A8C",
   },
   {
     slug: "autism-support",
@@ -49,41 +110,41 @@ export const projects = [
       "**AURA (Autism Understanding & Response Assistant)** isimli projemizde, kendi kurduğum bir ekibe liderlik ederek ülkemizde ve dünya çapında eksikliği hissedilen ciddi bir pazara ürün geliştiriyoruz. Otizm spektrumunda bulunan bir bireye ebeveynlik yapan ailelerin **%86'sı** \"kriz anlarında ne yapacağımı bilmiyorum\" diyor ve ülkemizde **600 binden fazla** otizm spektrumunda birey bulunmakta.\n\nEkibimizde bulunan Yeditepe Üniversitesi'nden akademisyenler ve özel eğitim öğrencileri ile birlikte, **RAG temelli bir AI chatbot** geliştiriyoruz. Kriz anında vereceğimiz desteği en doğru şekilde bize aktaran akademisyen hocalarımızla sürdürdüğümüz çalışmalar, ürünümüzün tutarlılık seviyesini artırıyor. **Java Spring Boot ve Python** temelli backend ve AI mimarisini de kendi kurduğum yazılımcı ekibimizle geliştiriyoruz. Benzer sorunları yaşayan ailelerin yalnızlık sorunlarını gidermek adına **vektör tabanlı eşleştirme** ile ailelerin birbirlerini bulmalarını sağlayarak sosyal sorunlara modern yapay zeka çözümleri getiriyoruz.\n\nOtizmli bireylere destek olacak bir sosyal sorumluluk projesinde çalışmak hem ülkeme olan borcumu ödemiş hissettiriyor, hem de AI geliştirme deneyimime bir yenisini daha ekliyor.",
 
     role: "Founder & Full Stack Developer",
-    period: "Feb 2026 – Present",
+    period: "Feb 2026 – Jul 2026",
     tech: ["Java", "Spring Boot", "Python", "RAG", "Vector Search", "Microservices", "AI/ML"],
     githubUrl: null,
     liveUrl: null,
-    videoUrl: null,
+    videos: [],
     externalUrl: null,
     featured: true,
-    status: "In Progress",
+    status: "Completed",
     coverColor: "#034C8C",
   },
   {
-    slug: "driver-guidance",
-    title: "AI Driver Guidance System",
-    subtitle: "Hybrid Architecture Design",
+    slug: "llm-fine-tuning",
+    title: "Personal LLM Fine-Tuning",
+    subtitle: "Qwen2.5-1.5B Clone Experiment",
 
     shortDescription:
-      "Hybrid architecture design integrating Layered, Microservices, and Event-Driven patterns for smart charging stations.",
+      "Fine-tuned Qwen2.5-1.5B-Instruct on an anonymized personal chat dataset with Unsloth, quantized to GGUF for local inference.",
     shortDescriptionTr:
-      "Akıllı şarj istasyonları için Katmanlı, Mikroservis ve Olay Tabanlı mimarilerini birleştiren hibrit mimari tasarımı.",
+      "Anonimleştirilmiş kişisel sohbet verisiyle Unsloth kullanarak Qwen2.5-1.5B-Instruct fine-tune ettim; yerelde çalıştırmak için GGUF'a quantize ettim.",
 
     longDescription:
-      "Designing a hybrid software architecture integrating Layered, Microservices, and Event-Driven patterns to enhance system modularity and fault tolerance. Defining data strategies using C4 modeling for distinct system layers while facilitating asynchronous communication for real-time charging station and traffic data.",
+      "A personal experiment to see how well a small model can learn my own conversational style. I prepared a custom dataset from my personal chat history, applying **anonymization and preprocessing** to remove identifying information before formatting it into **instruction-tuning pairs**.\n\nI then fine-tuned **Qwen2.5-1.5B-Instruct** using **Unsloth** for accelerated training, and finally **quantized** and converted the result to **GGUF** format for local inference via **llama.cpp / Ollama**. The model is published on Hugging Face.",
     longDescriptionTr:
-      "Sistem modülerliğini ve hata toleransını artırmak amacıyla Katmanlı, Mikroservis ve Olay Tabanlı mimari desenlerini entegre eden hibrit bir yazılım mimarisi tasarlıyorum. Birbirinden bağımsız sistem katmanları için C4 modelleme ile veri stratejileri tanımlarken, gerçek zamanlı şarj istasyonu ve trafik verileri için asenkron iletişim mekanizmaları yapılandırıyorum.",
+      "Küçük bir modelin benim konuşma tarzımı ne kadar iyi öğrenebileceğini görmek için yaptığım kişisel bir deney. Kişisel sohbet geçmişimden özel bir veri seti hazırladım; kimlik bilgilerini temizlemek için **anonimleştirme ve ön işleme** uyguladıktan sonra veriyi **instruction-tuning çiftlerine** dönüştürdüm.\n\nArdından **Unsloth** ile hızlandırılmış eğitim kullanarak **Qwen2.5-1.5B-Instruct** modelini fine-tune ettim ve sonucu **llama.cpp / Ollama** ile yerelde çalıştırmak için **quantize** edip **GGUF** formatına dönüştürdüm. Model Hugging Face'te yayında.",
 
-    role: "Jr. Architecture Designer",
-    period: "June 2025 – Present",
-    tech: ["Architecture Design", "C4 Modeling", "Microservices", "Event-Driven", "System Design"],
+    role: "ML Practitioner (Personal Project)",
+    period: "Feb 2026",
+    tech: ["Python", "Fine-Tuning", "Unsloth", "Qwen2.5", "GGUF", "Ollama"],
     githubUrl: null,
     liveUrl: null,
-    videoUrl: null,
-    externalUrl: "https://sites.google.com/view/yeditepeserg/home",
+    videos: [],
+    externalUrl: "https://huggingface.co/ahmetege/ahmetege-clone-v1-gguf",
     featured: false,
-    status: "In Progress",
-    coverColor: "#2481A6",
+    status: "Completed",
+    coverColor: "#6B3E8C",
   },
   {
     slug: "pang-game",
@@ -111,7 +172,7 @@ export const projects = [
     tech: ["Java", "OOP", "Swing/AWT", "Game Development", "File I/O"],
     githubUrl: "https://github.com/ahmetege0/pang-arcade-game",
     liveUrl: null,
-    videoUrl: null,
+    videos: [],
     externalUrl: null,
     featured: false,
     status: "Completed",
