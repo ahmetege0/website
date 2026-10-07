@@ -19,7 +19,7 @@ export const translations = {
             greeting: "Hi, my name is",
             tagline: "I build scalable software.",
             description:
-                "Software Engineer & Undergraduate Research Assistant at SERG, Yeditepe University. Focused on backend systems with Java Spring Boot, Python, and microservice architectures.",
+                "AI Researcher & Data Engineer (Long-Term Intern) at Magibu AI and Computer Engineering student at Yeditepe University. Building RAG systems, multilingual datasets, and scalable backends with Java Spring Boot and Python.",
             cta: "View My Work",
             downloadCv: "Download CV",
             techLabel: "Stack",
@@ -41,34 +41,38 @@ export const translations = {
                 },
                 {
                     parts: [
-                        { t: "As an ", style: "muted" },
-                        { t: "Undergraduate Research Assistant at SERG", style: "gold" },
-                        { t: ", I contribute to large-scale projects including the Smart Parking Management System (20+ member team) and an AI-Powered Driver Guidance System.", style: "muted" },
+                        { t: "Currently a ", style: "muted" },
+                        { t: "Long-Term Intern at Magibu AI", style: "gold" },
+                        { t: ", working on multilingual datasets for tokenizer research and RAG-based retrieval systems. Before that, I completed the ", style: "muted" },
+                        { t: "AI-Native Summer Internship at OBSS", style: "accent" },
+                        { t: " and spent over a year at SERG, where our Smart Parking research (20+ member team) grew into ", style: "muted" },
+                        { t: "ArcMotus", style: "accent" },
+                        { t: ", a company we founded with our advisor.", style: "muted" },
                     ],
                 },
                 {
                     parts: [
-                        { t: "I specialize in building scalable backend systems with ", style: "muted" },
+                        { t: "I enjoy working where backend engineering meets AI: scalable services with ", style: "muted" },
                         { t: "Java Spring Boot", style: "accent" },
                         { t: " and ", style: "muted" },
                         { t: "Python", style: "accent" },
-                        { t: ", focusing on microservice architectures, AI integration, and clean, maintainable code.", style: "muted" },
+                        { t: ", RAG pipelines, fine-tuning, and multi-agent LLM systems — always with clean, maintainable code.", style: "muted" },
                     ],
                 },
                 {
                     parts: [
-                        { t: "Outside engineering, I serve as ", style: "muted" },
+                        { t: "Outside engineering, I served as ", style: "muted" },
                         { t: "Sponsorship Coordinator at IEEE Yeditepe", style: "accent" },
-                        { t: ", managing corporate relations and leading team initiatives.", style: "muted" },
+                        { t: " (2025–2026), securing corporate sponsorships for the student branch's projects.", style: "muted" },
                     ],
                 },
             ],
             techStack: "Tech Stack",
             stats: [
-                { value: "3rd", label: "Year at Yeditepe" },
-                { value: "4+", label: "Projects" },
+                { value: "4th", label: "Year at Yeditepe" },
+                { value: "6+", label: "Projects" },
                 { value: "Full", label: "Merit Scholarship" },
-                { value: "SERG", label: "Research Group" },
+                { value: "3", label: "Internships" },
             ],
             skillCategories: [
                 "Languages",
@@ -83,21 +87,50 @@ export const translations = {
             title: "Where I've worked",
             entries: [
                 {
-                    period: "May 2025 — Present",
-                    title: "Undergraduate Research Assistant",
-                    company: "SERG · Yeditepe University",
-                    href: "https://sites.google.com/view/yeditepeserg/home",
+                    period: "Aug 2026 — Present",
+                    title: "AI Researcher & Data Engineer · Long-Term Intern",
+                    company: "Magibu AI",
+                    href: "https://magibu.ai/",
                     description:
-                        "Contributing to the Smart Parking Management System, a large-scale project with a cross-functional team of 20+ members. Also collaborating on the AI-Powered Driver Guidance System — contributing to architectural design and requirements engineering for a user-centric decision support system.",
-                    tech: ["Java", "Spring Boot", "Python", "AI/ML", "Microservices", "Architecture Design"],
+                        "Collecting, cleaning, and organizing multilingual datasets — primarily Turkish, spanning 40+ additional languages — to support tokenizer research and model training. Developing RAG-based precedent decision-query modules by experimenting with vector search and optimal chunking strategies, and rigorously testing experimental AI features on their way to production.",
+                    tech: ["RAG", "Vector Search", "Chunking Strategies", "Tokenizer Research", "Multilingual Datasets", "Model Training"],
+                },
+                {
+                    period: "Jul 2026 — Aug 2026",
+                    title: "AI-Native Summer Intern",
+                    company: "OBSS Teknoloji",
+                    href: "https://obss.tech/en/",
+                    description:
+                        "Trained in AI-Native software engineering (spec-driven development, ATDD/TDD, AI orchestration), then built a full-stack mock interview platform in a small team using LLM APIs for adaptive question generation and candidate evaluation reports. Practiced Controlled Autonomy: authored specs, architecture decisions, and AI usage logs as quality gates, taking full ownership of every AI-assisted output before delivery.",
+                    tech: ["Spec-Driven Development", "ATDD/TDD", "AI Orchestration", "LLM APIs", "MCP", "Full Stack"],
+                },
+                {
+                    company: "ArcMotus · SERG (Yeditepe University)",
+                    href: "https://www.arcmotus.com/",
+                    roles: [
+                        {
+                            period: "May 2026 — Aug 2026",
+                            title: "Founding Team Member · ArcMotus",
+                            description:
+                                "Together with our team and our advisor Prof. Dr. Mert Özkaya, we turned our SERG research into ArcMotus — a company building solutions that cut the time wasted on parking in big cities like Istanbul. Took ParkWiser, our first product, from a research prototype to a marketable AI-powered smart parking platform.",
+                            tech: ["Java", "Spring Boot", "Python", "AI Chatbot", "IoT", "Microservices"],
+                        },
+                        {
+                            period: "May 2025 — May 2026",
+                            title: "Undergraduate Research Assistant · SERG",
+                            description:
+                                "Contributed to the Smart Parking Management System, a large-scale project with a cross-functional team of 20+ members, including a professor and alumni — from requirements gathering to backend development with Java Spring Boot and PostgreSQL, IoT device integration, and the transition to a microservice architecture.",
+                            tech: ["Java", "Spring Boot", "PostgreSQL", "Microservices", "Requirements Engineering"],
+                        },
+                    ],
                 },
                 {
                     period: "Sep 2024 — Oct 2024",
-                    title: "Software Engineer Intern",
+                    title: "Software Engineer Intern (Volunteer)",
                     company: "Game Actor",
                     href: "https://www.game.actor/",
                     description:
-                        "Developed responsive and modern user interfaces leveraging React and component-based architecture to ensure modularity, high performance, and code reusability across web applications. (Volunteer)",
+                        "Developed responsive and modern user interfaces leveraging React and component-based architecture to ensure modularity, high performance, and code reusability across web applications.",
                     tech: ["React", "JavaScript", "HTML/CSS", "Component Architecture"],
                 },
             ],
@@ -159,7 +192,7 @@ export const translations = {
             greeting: "Merhaba, ben",
             tagline: "Ölçeklenebilir yazılımlar\ngeliştiriyorum.",
             description:
-                "SERG, Yeditepe Üniversitesi bünyesinde Yazılım Mühendisi ve Lisans Araştırma Asistanıyım. Java Spring Boot, Python ve mikroservis mimarilerinde backend sistemlerine odaklanıyorum.",
+                "Magibu AI'da uzun dönem stajyer olarak AI Araştırmacısı & Veri Mühendisiyim, Yeditepe Üniversitesi'nde Bilgisayar Mühendisliği okuyorum. RAG sistemleri, çok dilli veri setleri ve Java Spring Boot ile Python tabanlı ölçeklenebilir backend'ler geliştiriyorum.",
             cta: "Projelerimi Gör",
             downloadCv: "CV İNDİR",
             techLabel: "Teknolojiler",
@@ -180,33 +213,38 @@ export const translations = {
                 },
                 {
                     parts: [
-                        { t: "SERG'de ", style: "muted" },
-                        { t: "Lisans Araştırma Asistanı", style: "gold" },
-                        { t: " olarak Smart Parking Management System (20+ kişilik ekip) ve AI Tabanlı Sürücü Rehberlik Sistemi gibi büyük ölçekli projelere katkıda bulunuyorum.", style: "muted" },
+                        { t: "Şu anda ", style: "muted" },
+                        { t: "Magibu AI'da uzun dönem stajyer", style: "gold" },
+                        { t: " olarak tokenizer araştırmaları için çok dilli veri setleri ve RAG tabanlı arama sistemleri üzerinde çalışıyorum. Öncesinde ", style: "muted" },
+                        { t: "OBSS'teki AI-Native Yaz Stajımı", style: "accent" },
+                        { t: " tamamladım; SERG'de bir yılı aşkın süre çalıştım ve 20+ kişilik ekiple yürüttüğümüz akıllı otopark araştırmamız, danışman hocamızla kurduğumuz ", style: "muted" },
+                        { t: "ArcMotus", style: "accent" },
+                        { t: " şirketine dönüştü.", style: "muted" },
                     ],
                 },
                 {
                     parts: [
+                        { t: "Backend mühendisliği ile yapay zekanın kesiştiği yerde çalışmayı seviyorum: ", style: "muted" },
                         { t: "Java Spring Boot", style: "accent" },
                         { t: " ve ", style: "muted" },
                         { t: "Python", style: "accent" },
-                        { t: " ile ölçeklenebilir backend sistemler geliştirmeyi, mikroservis mimarileri ve AI entegrasyonuna odaklanmayı uzmanlık alanım olarak görüyorum.", style: "muted" },
+                        { t: " ile ölçeklenebilir servisler, RAG pipeline'ları, fine-tuning ve multi-agent LLM sistemleri — her zaman temiz ve sürdürülebilir kodla.", style: "muted" },
                     ],
                 },
                 {
                     parts: [
                         { t: "Mühendislik dışında ", style: "muted" },
                         { t: "IEEE Yeditepe'de Sponsorluk Koordinatörü", style: "accent" },
-                        { t: " olarak kurumsal ilişkileri yönetiyor ve ekip girişimlerine liderlik ediyorum.", style: "muted" },
+                        { t: " (2025–2026) olarak öğrenci kolunun projeleri için kurumsal sponsorluklar sağladım.", style: "muted" },
                     ],
                 },
             ],
             techStack: "Teknoloji Yığını",
             stats: [
-                { value: "3.", label: "Yeditepe'de Yıl" },
-                { value: "4+", label: "Proje" },
+                { value: "4.", label: "Yeditepe'de Yıl" },
+                { value: "6+", label: "Proje" },
                 { value: "Tam", label: "Burs" },
-                { value: "SERG", label: "Araştırma Grubu" },
+                { value: "3", label: "Staj" },
             ],
             skillCategories: [
                 "Diller",
@@ -221,21 +259,50 @@ export const translations = {
             title: "Çalıştığım yerler",
             entries: [
                 {
-                    period: "May 2025 — Günümüz",
-                    title: "Lisans Araştırma Asistanı",
-                    company: "SERG · Yeditepe Üniversitesi",
-                    href: "https://sites.google.com/view/yeditepeserg/home",
+                    period: "Ağu 2026 — Günümüz",
+                    title: "AI Araştırmacısı & Veri Mühendisi · Uzun Dönem Stajyer",
+                    company: "Magibu AI",
+                    href: "https://magibu.ai/",
                     description:
-                        "20+ kişilik çapraz fonksiyonlu ekiple yürütülen Smart Parking Management System projesine katkıda bulunuyorum. Ayrıca AI Tabanlı Sürücü Rehberlik Sistemi için mimari tasarım ve gereksinim mühendisliği üzerine çalışıyorum.",
-                    tech: ["Java", "Spring Boot", "Python", "AI/ML", "Mikroservisler", "Mimari Tasarım"],
+                        "Tokenizer araştırmaları ve model eğitimini desteklemek için başta Türkçe olmak üzere 40+ dili kapsayan çok dilli veri setlerini topluyor, temizliyor ve düzenliyorum. Vektör arama ve optimal chunking stratejileri üzerinde deneyler yaparak RAG tabanlı emsal karar sorgulama modülleri geliştiriyor, deneysel AI özelliklerini kapsamlı testlerle production'a hazırlıyorum.",
+                    tech: ["RAG", "Vektör Arama", "Chunking Stratejileri", "Tokenizer Araştırması", "Çok Dilli Veri Setleri", "Model Eğitimi"],
+                },
+                {
+                    period: "Tem 2026 — Ağu 2026",
+                    title: "AI-Native Yaz Stajyeri",
+                    company: "OBSS Teknoloji",
+                    href: "https://obss.tech/en/",
+                    description:
+                        "AI-Native yazılım mühendisliği (spec-driven development, ATDD/TDD, AI orkestrasyonu) eğitimi aldıktan sonra küçük bir ekiple, LLM API'leri ile uyarlanabilir soru üretimi ve aday değerlendirme raporları sunan full-stack bir mülakat simülasyonu platformu geliştirdim. Kontrollü Otonomi yaklaşımıyla spec'leri, mimari kararları ve AI kullanım kayıtlarını kalite kapıları olarak yazdım; AI destekli her çıktının teknik sorumluluğunu teslimden önce üstlendim.",
+                    tech: ["Spec-Driven Development", "ATDD/TDD", "AI Orkestrasyonu", "LLM API'leri", "MCP", "Full Stack"],
+                },
+                {
+                    company: "ArcMotus · SERG (Yeditepe Üniversitesi)",
+                    href: "https://www.arcmotus.com/",
+                    roles: [
+                        {
+                            period: "May 2026 — Ağu 2026",
+                            title: "Kurucu Ekip Üyesi · ArcMotus",
+                            description:
+                                "Ekibimiz ve danışman hocamız Prof. Dr. Mert Özkaya ile SERG'deki araştırmamızı, İstanbul gibi büyük şehirlerde park etmek için harcanan zamanı azaltan çözümler geliştiren ArcMotus şirketine dönüştürdük. İlk ürünümüz ParkWiser'ı bir araştırma prototipinden pazarlanabilir, yapay zeka destekli bir akıllı otopark platformuna taşıdık.",
+                            tech: ["Java", "Spring Boot", "Python", "AI Chatbot", "IoT", "Mikroservisler"],
+                        },
+                        {
+                            period: "May 2025 — May 2026",
+                            title: "Lisans Araştırma Asistanı · SERG",
+                            description:
+                                "Bir profesör ve mezunların da yer aldığı 20+ kişilik çapraz fonksiyonlu ekiple yürütülen Smart Parking Management System projesinde; gereksinim toplamadan Java Spring Boot ve PostgreSQL ile backend geliştirmeye, IoT cihaz entegrasyonundan mikroservis mimarisine geçişe kadar her aşamada yer aldım.",
+                            tech: ["Java", "Spring Boot", "PostgreSQL", "Mikroservisler", "Gereksinim Mühendisliği"],
+                        },
+                    ],
                 },
                 {
                     period: "Eyl 2024 — Eki 2024",
-                    title: "Yazılım Mühendisi Stajyeri",
+                    title: "Yazılım Mühendisi Stajyeri (Gönüllü)",
                     company: "Game Actor",
                     href: "https://www.game.actor/",
                     description:
-                        "React ve bileşen tabanlı mimari kullanarak web uygulamalarında modern, duyarlı kullanıcı arayüzleri geliştirdim. Modülerlik, yüksek performans ve kod yeniden kullanılabilirliğini ön planda tuttum. (Gönüllü staj)",
+                        "React ve bileşen tabanlı mimari kullanarak web uygulamalarında modern, duyarlı kullanıcı arayüzleri geliştirdim. Modülerlik, yüksek performans ve kod yeniden kullanılabilirliğini ön planda tuttum.",
                     tech: ["React", "JavaScript", "HTML/CSS", "Bileşen Mimarisi"],
                 },
             ],

@@ -76,7 +76,7 @@ export default function Hero() {
                     </a>
                     <a
                         href="/cv.pdf"
-                        download
+                        download="Ahmet_Ege_CV.pdf"
                         className="btn-outline"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,7 +90,7 @@ export default function Hero() {
                 </motion.div>
 
                 <motion.div variants={itemVariants} className="mt-14 flex flex-wrap gap-3">
-                    {["Java", "Spring Boot", "Python", "Microservices", "React", "Next.js"].map((tech) => (
+                    {["Python", "Java", "Spring Boot", "RAG", "Microservices", "React"].map((tech) => (
                         <span
                             key={tech}
                             className="font-mono text-xs px-3 py-1 rounded border"

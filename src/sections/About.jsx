@@ -27,7 +27,7 @@ function AvatarFallback() {
 const skillGroups = [
     { color: "var(--accent)", items: ["Java", "Python", "C", "JavaScript", "HTML/CSS", "Assembly"] },
     { color: "var(--accent-dim)", items: ["Spring Boot", "React", "Next.js", "FastAPI"] },
-    { color: "var(--blue)", items: ["RAG", "Fine-Tuning", "Vector Search", "AI/ML Integration"] },
+    { color: "var(--blue)", items: ["RAG", "Fine-Tuning", "Vector Search", "Embedding Models", "MCP", "Multi-Agent Pipelines"] },
     { color: "var(--gold)", items: ["Microservices", "Docker", "PostgreSQL", "Git", "IntelliJ"] },
 ];
 

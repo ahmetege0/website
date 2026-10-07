@@ -19,7 +19,7 @@ const inter = Inter({
 export const metadata = {
   title: "Ahmet Ege | Software Engineer",
   description:
-    "Software Engineer & Undergraduate Research Assistant at SERG, Yeditepe University. Building scalable backend systems with Java Spring Boot, Python, and microservice architectures.",
+    "AI Researcher & Data Engineer (Long-Term Intern) at Magibu AI and Computer Engineering student at Yeditepe University. Building RAG systems, multilingual datasets, and scalable backends with Java Spring Boot and Python.",
   keywords: [
     "Ahmet Ege",
     "software engineer",
@@ -27,8 +27,12 @@ export const metadata = {
     "Java Spring Boot",
     "Python",
     "microservices",
+    "AI engineer",
+    "RAG",
+    "Magibu AI",
     "Yeditepe University",
     "SERG",
+    "ArcMotus",
     "portfolio",
   ],
   authors: [{ name: "Ahmet Ege" }],
@@ -43,7 +47,7 @@ export const metadata = {
   openGraph: {
     title: "Ahmet Ege | Software Engineer",
     description:
-      "Software Engineer & Undergraduate Research Assistant at Yeditepe University.",
+      "AI Researcher & Data Engineer at Magibu AI · Computer Engineering at Yeditepe University.",
     url: "https://ahmetege.dev",
     siteName: "Ahmet Ege",
     locale: "en_US",
@@ -53,7 +57,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Ahmet Ege | Software Engineer",
     description:
-      "Software Engineer & Undergraduate Research Assistant at Yeditepe University.",
+      "AI Researcher & Data Engineer at Magibu AI · Computer Engineering at Yeditepe University.",
   },
   robots: { index: true, follow: true },
 };
